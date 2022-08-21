@@ -2,6 +2,7 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include "Window.hpp"
+#include "World.hpp"
 
 int main(int argc, char* argv[])
 {
@@ -20,7 +21,7 @@ int main(int argc, char* argv[])
 
     bool gameRunning = true;
 
-    SDL_Texture* grass = window.loadTexture("res/artwork/grass.png");
+    World world;
 
     SDL_Event event;
     while (gameRunning)
@@ -32,7 +33,9 @@ int main(int argc, char* argv[])
         }
 
         window.clear();
-        window.render(grass, {0, 0, 32, 32}, {64, 64, 64, 64});
+
+        world.render(&window);
+
         window.display();
     }
 
