@@ -1,37 +1,25 @@
-#include "SDL2/SDL.h"
-#include <stdio.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <iostream>
+#include "Window.hpp"
 
-int main(int argc, char* argv[]) {
-
-    SDL_Window *window;                    // Declare a pointer
-
-    SDL_Init(SDL_INIT_EVERYTHING);              // Initialize SDL2
-
-    // Create an application window with the following settings:
-    window = SDL_CreateWindow(
-        "CapitalLife",                  // window title
-        SDL_WINDOWPOS_CENTERED,           // initial x position
-        SDL_WINDOWPOS_CENTERED,           // initial y position
-        1280,                               // width, in pixels
-        720,                               // height, in pixels
-        SDL_WINDOW_SHOWN                  // flags - see below
-    );
-
-    // Check that the window was successfully created
-    if (window == NULL) {
-        // In the case that the window could not be made...
-        printf("Could not create window: %s\n", SDL_GetError());
+int main(int argc, char* argv[])
+{
+    if (SDL_Init(SDL_INIT_VIDEO) != 0)
+    {
+        std::cerr << "Couldn't init SDL_Video: " << SDL_GetError() << std::endl;
+        return 1;
+    }
+    if (!(IMG_Init(IMG_INIT_PNG)))
+    {
+        std::cerr << "Couldn't init IMG_png: " << SDL_GetError() << std::endl;
         return 1;
     }
 
-    // The window is open: could enter program loop here (see SDL_PollEvent())
+    Window window("CapitalLife", 1280, 720);
 
-    SDL_Delay(3000);  // Pause execution for 3000 milliseconds, for example
-
-    // Close and destroy the window
-    SDL_DestroyWindow(window);
-
-    // Clean up
+    window.cleanup();
     SDL_Quit();
+
     return 0;
 }
