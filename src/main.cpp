@@ -20,6 +20,8 @@ int main(int argc, char* argv[])
 
     bool gameRunning = true;
 
+    SDL_Texture* grass = window.loadTexture("res/artwork/grass.png");
+
     SDL_Event event;
     while (gameRunning)
     {
@@ -30,6 +32,7 @@ int main(int argc, char* argv[])
         }
 
         window.clear();
+        window.render(grass);
         window.display();
     }
 

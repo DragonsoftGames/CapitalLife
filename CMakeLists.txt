@@ -10,3 +10,5 @@ target_include_directories(
     )
 
 target_link_libraries(capitallife SDL2main SDL2 SDL2_image)
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/res/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/res/)
