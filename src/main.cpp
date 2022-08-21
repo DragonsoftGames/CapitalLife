@@ -28,6 +28,9 @@ int main(int argc, char* argv[])
             if (event.type == SDL_QUIT)
                 gameRunning = false;
         }
+
+        window.clear();
+        window.display();
     }
 
     window.cleanup();
