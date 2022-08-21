@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 
     bool gameRunning = true;
 
-    World world;
+    World world(window.loadTexture("res/artwork/grass.png"));
 
     SDL_Event event;
     while (gameRunning)

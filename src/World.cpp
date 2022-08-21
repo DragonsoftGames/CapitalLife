@@ -2,7 +2,8 @@
 
 #include "Tile.hpp"
 
-World::World()
+World::World(SDL_Texture* texture)
+    :chunk(this, 0, 0, texture)
 {
 
 }
@@ -14,8 +15,5 @@ void World::update()
 
 void World::render(Window* p_window)
 {
-    Tile tileOne(this, 0, 0, p_window->loadTexture("res/artwork/grass.png"));
-    Tile tileTwo(this, 0, 1, p_window->loadTexture("res/artwork/grass.png"));
-    tileOne.render(p_window);
-    tileTwo.render(p_window);
+    chunk.render(p_window);
 }

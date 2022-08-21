@@ -1,7 +1,7 @@
 #include "Tile.hpp"
 
-Tile::Tile(World* p_world, unsigned char p_x, unsigned char p_y, SDL_Texture* p_tex)
-    :world(p_world), x(p_x), y(p_y), texture(p_tex)
+Tile::Tile(Chunk* p_chunk, unsigned char p_x, unsigned char p_y, SDL_Texture* p_tex)
+    :chunk(p_chunk), x(p_x), y(p_y), texture(p_tex)
 {
 
 }

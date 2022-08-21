@@ -1,15 +1,17 @@
 #pragma once
 
-#include "World.hpp"
+#include "Window.hpp"
+
+class Chunk;
 
 class Tile {
 public:
-    Tile(World* p_world, unsigned char p_x, unsigned char p_y, SDL_Texture* p_tex);
+    Tile(Chunk* p_chunk, unsigned char p_x, unsigned char p_y, SDL_Texture* p_tex);
     
     void update();
     void render(Window* p_window);
 private:
-    World* world;
+    Chunk* chunk;
     unsigned char x;
     unsigned char y;
     SDL_Texture* texture;
