@@ -1,5 +1,6 @@
 #pragma once
 
+#include <map>
 #include "Window.hpp"
 
 #include "Chunk.hpp"
@@ -11,5 +12,6 @@ public:
     void update();
     void render(Window* p_window);
 private:
-    Chunk chunk;
+    void loadChunk(unsigned char p_x, unsigned char p_y, SDL_Texture* texture);
+    std::map<std::pair<unsigned char, unsigned char>, Chunk*> chunks;
 };

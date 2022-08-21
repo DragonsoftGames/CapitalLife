@@ -11,7 +11,7 @@ void Tile::update()
 
 }
 
-void Tile::render(Window* p_window)
+void Tile::render(Window* p_window, int p_x, int p_y)
 {
-    p_window->render(texture, {0, 0, 32, 32}, {64*x, 64*y, 64, 64});
+    p_window->render(texture, {0, 0, 32, 32}, {64*p_x, 64*p_y, 64, 64});
 }

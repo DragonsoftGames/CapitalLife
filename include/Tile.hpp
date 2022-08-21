@@ -9,7 +9,7 @@ public:
     Tile(Chunk* p_chunk, unsigned char p_x, unsigned char p_y, SDL_Texture* p_tex);
     
     void update();
-    void render(Window* p_window);
+    void render(Window* p_window, int p_x, int p_y);
 private:
     Chunk* chunk;
     unsigned char x;

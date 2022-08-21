@@ -23,7 +23,7 @@ void Chunk::render(Window* p_window)
     {
         for (int tileY = 0; tileY < 16; tileY++)
         {
-            tiles[tileX][tileY]->render(p_window);
+            tiles[tileX][tileY]->render(p_window, tileX + (x * 16), tileY + (y * 16));
         }
     }
 }
