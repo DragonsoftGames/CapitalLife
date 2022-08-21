@@ -1,5 +1,37 @@
-#include <iostream>
+#include "SDL2/SDL.h"
+#include <stdio.h>
 
-int main(int, char**) {
-    std::cout << "Starting CapitalLife...\n";
+int main(int argc, char* argv[]) {
+
+    SDL_Window *window;                    // Declare a pointer
+
+    SDL_Init(SDL_INIT_EVERYTHING);              // Initialize SDL2
+
+    // Create an application window with the following settings:
+    window = SDL_CreateWindow(
+        "CapitalLife",                  // window title
+        SDL_WINDOWPOS_CENTERED,           // initial x position
+        SDL_WINDOWPOS_CENTERED,           // initial y position
+        1280,                               // width, in pixels
+        720,                               // height, in pixels
+        SDL_WINDOW_SHOWN                  // flags - see below
+    );
+
+    // Check that the window was successfully created
+    if (window == NULL) {
+        // In the case that the window could not be made...
+        printf("Could not create window: %s\n", SDL_GetError());
+        return 1;
+    }
+
+    // The window is open: could enter program loop here (see SDL_PollEvent())
+
+    SDL_Delay(3000);  // Pause execution for 3000 milliseconds, for example
+
+    // Close and destroy the window
+    SDL_DestroyWindow(window);
+
+    // Clean up
+    SDL_Quit();
+    return 0;
 }
