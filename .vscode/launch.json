@@ -15,6 +15,7 @@
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
+            "preLaunchTask": "cmake_build",
             "setupCommands": [
                 {
                     "description": "Automatische Strukturierung und Einrückung für \"gdb\" aktivieren",
