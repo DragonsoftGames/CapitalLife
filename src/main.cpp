@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
         }
 
         window.clear();
-        window.render(grass);
+        window.render(grass, {0, 0, 32, 32}, {64, 64, 64, 64});
         window.display();
     }
 

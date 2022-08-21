@@ -10,7 +10,7 @@ public:
     SDL_Texture* loadTexture(const char* p_filePath);
 
     void clear();
-    void render(SDL_Texture* p_tex);
+    void render(SDL_Texture* p_tex, SDL_Rect src, SDL_Rect dst);
     void display();
 
     void cleanup();

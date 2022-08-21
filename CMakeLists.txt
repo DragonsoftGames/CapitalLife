@@ -11,4 +11,6 @@ target_include_directories(
 
 target_link_libraries(capitallife SDL2main SDL2 SDL2_image)
 
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/res/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/res/)
+add_custom_command(TARGET capitallife PRE_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                   ${CMAKE_CURRENT_SOURCE_DIR}/res/ ${CMAKE_CURRENT_BINARY_DIR}/res/)
