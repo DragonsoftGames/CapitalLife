@@ -18,6 +18,18 @@ int main(int argc, char* argv[])
 
     Window window("CapitalLife", 1280, 720);
 
+    bool gameRunning = true;
+
+    SDL_Event event;
+    while (gameRunning)
+    {
+        while (SDL_PollEvent(&event))
+        {
+            if (event.type == SDL_QUIT)
+                gameRunning = false;
+        }
+    }
+
     window.cleanup();
     SDL_Quit();
 
