@@ -26,8 +26,8 @@ int main(int argc, char* argv[])
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;
 
-    Uint64 currentTime = 0;
-    Uint64 lastTime = 0;
+    Uint32 currentTime = 0;
+    Uint32 lastTime = 0;
     float deltaTime = 0;
 
     SDL_Event event;
