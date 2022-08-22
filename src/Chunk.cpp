@@ -7,7 +7,7 @@ Chunk::Chunk(World* p_world, unsigned char p_x, unsigned char p_y, SDL_Texture* 
     {
         for (int tileY = 0; tileY < 16; tileY++)
         {
-            tiles[tileX][tileY] = new Tile(this, tileX, tileY, texture);
+            tiles[tileX][tileY] = new Tile(this, tileX, tileY);
         }
     }
 }
