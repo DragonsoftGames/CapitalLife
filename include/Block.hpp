@@ -1,5 +1,7 @@
 #pragma once
 
+#define DEFAULT_BLOCK_SIZE 64
+
 #include "Window.hpp"
 
 class Block {

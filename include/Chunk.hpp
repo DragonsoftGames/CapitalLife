@@ -1,5 +1,7 @@
 #pragma once
 
+#define CHUNK_SIZE 16
+
 #include "Window.hpp"
 
 class World;
@@ -17,5 +19,5 @@ private:
     World* world;
     unsigned char x;
     unsigned char y;
-    Tile* tiles[16][16];
+    Tile* tiles[CHUNK_SIZE][CHUNK_SIZE];
 };
