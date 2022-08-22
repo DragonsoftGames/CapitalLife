@@ -23,9 +23,27 @@ int main(int argc, char* argv[])
 
     World* world = new World(window.loadTexture("res/artwork/grass.png"));
 
+    const int FPS = 60;
+    const int frameDelay = 1000 / FPS;
+
+    Uint64 currentTime = 0;
+    Uint64 lastTime = 0;
+    float deltaTime = 0;
+
     SDL_Event event;
     while (gameRunning)
     {
+        currentTime = SDL_GetTicks();
+        int frameTime = SDL_GetTicks() - lastTime;
+        deltaTime = ((float)frameTime) / 1000.0f;
+        if(frameDelay > frameTime)
+        {
+            SDL_Delay(frameDelay - frameTime);
+        }
+        lastTime = currentTime;
+
+        std::cout << deltaTime << std::endl;
+
         while (SDL_PollEvent(&event))
         {
             if (event.type == SDL_QUIT)
