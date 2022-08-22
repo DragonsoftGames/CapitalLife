@@ -6,6 +6,11 @@ Tile::Tile(Chunk* p_chunk, unsigned char p_x, unsigned char p_y, SDL_Texture* p_
 
 }
 
+Tile::~Tile()
+{
+    
+}
+
 void Tile::update()
 {
 

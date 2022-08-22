@@ -8,6 +8,7 @@
 class World {
 public:
     World(SDL_Texture* texture);
+    ~World();
 
     void update();
     void render(Window* p_window);

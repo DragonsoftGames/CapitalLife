@@ -12,6 +12,17 @@ Chunk::Chunk(World* p_world, unsigned char p_x, unsigned char p_y, SDL_Texture* 
     }
 }
 
+Chunk::~Chunk()
+{
+    for (int tileX = 0; tileX < 16; tileX++)
+    {
+        for (int tileY = 0; tileY < 16; tileY++)
+        {
+            delete tiles[tileX][tileY];
+        }
+    }
+}
+
 void Chunk::update()
 {
 

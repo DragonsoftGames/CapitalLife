@@ -9,6 +9,7 @@ class World;
 class Chunk {
 public:
     Chunk(World* p_world, unsigned char p_x, unsigned char p_y, SDL_Texture* texture);
+    ~Chunk();
 
     void update();
     void render(Window* p_window);

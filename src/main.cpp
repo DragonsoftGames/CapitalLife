@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 
     bool gameRunning = true;
 
-    World world(window.loadTexture("res/artwork/grass.png"));
+    World* world = new World(window.loadTexture("res/artwork/grass.png"));
 
     SDL_Event event;
     while (gameRunning)
@@ -34,10 +34,12 @@ int main(int argc, char* argv[])
 
         window.clear();
 
-        world.render(&window);
+        world->render(&window);
 
         window.display();
     }
+
+    delete world;
 
     window.cleanup();
     SDL_Quit();

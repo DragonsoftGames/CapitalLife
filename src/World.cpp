@@ -8,6 +8,15 @@ World::World(SDL_Texture* texture)
     loadChunk(1, 0, texture);
 }
 
+World::~World()
+{
+    for (auto const& [key, chunk] : chunks)
+    {
+        delete chunk;
+    }
+    chunks.clear();
+}
+
 void World::update()
 {
 
