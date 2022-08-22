@@ -8,6 +8,11 @@ Chunk::Chunk(World* p_world, unsigned char p_x, unsigned char p_y, SDL_Texture* 
         for (int tileY = 0; tileY < 16; tileY++)
         {
             tiles[tileX][tileY] = new Tile(this, tileX, tileY);
+            tiles[tileX][tileY]->addBlock(new Block(texture, false));
+            if(tileX % 3 == 0 && tileY % 2 == 0)
+            {
+                tiles[tileX][tileY]->removeBlock();
+            }
         }
     }
 }
