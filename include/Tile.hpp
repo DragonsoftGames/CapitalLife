@@ -13,16 +13,17 @@ public:
     ~Tile();
 
     void addBlock(Block* block);
+    void addBlockUnsafe(Block* block);
     Block* removeBlock();
+    void calcFirstRenderIndex();
 
     void update();
     void render(Window* p_window, int p_x, int p_y);
 private:
-    void calcLastRenderIndex();
 
     Chunk* chunk;
     unsigned char x;
     unsigned char y;
     std::deque<Block*> blockStack;
-    int lastRenderIndex = -1;
+    int firstRenderIndex = -1;
 };

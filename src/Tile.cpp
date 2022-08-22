@@ -14,7 +14,12 @@ Tile::~Tile()
 void Tile::addBlock(Block* block)
 {
     blockStack.push_back(block);
-    calcLastRenderIndex();
+    calcFirstRenderIndex();
+}
+
+void Tile::addBlockUnsafe(Block* block)
+{
+    blockStack.push_back(block);
 }
 
 Block* Tile::removeBlock()
@@ -25,7 +30,7 @@ Block* Tile::removeBlock()
     }
     Block* result = blockStack.back();
     blockStack.pop_back();
-    calcLastRenderIndex();
+    calcFirstRenderIndex();
     return result;
 }
 
@@ -36,16 +41,16 @@ void Tile::update()
 
 void Tile::render(Window* p_window, int p_x, int p_y)
 {
-    for(int i = lastRenderIndex; i < blockStack.size(); i++)
+    for(int i = firstRenderIndex; i < blockStack.size(); i++)
     {
         blockStack[i]->render(p_window, p_x, p_y);
     }
 }
 
-void Tile::calcLastRenderIndex()
+void Tile::calcFirstRenderIndex()
 {
     int i = blockStack.size() - 1;
-    for (; i >= 0; i--)
+    for (; i > 0; i--)
     {
         if (!blockStack[i]->isTransparent())
         {
@@ -53,5 +58,5 @@ void Tile::calcLastRenderIndex()
         }
     }
 
-    lastRenderIndex = i;
+    firstRenderIndex = i;
 }

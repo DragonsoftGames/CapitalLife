@@ -1,6 +1,6 @@
 #pragma once
 
-#define DEFAULT_BLOCK_SIZE 64
+#define DEFAULT_BLOCK_SIZE 48
 
 #include "Window.hpp"
 
