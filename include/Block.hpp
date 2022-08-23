@@ -4,14 +4,22 @@
 
 #include "Window.hpp"
 
-class Block {
+class BlockData;
+
+class BlockRenderer {
 public:
-    Block(SDL_Texture* p_tex, bool p_transparent);
+    virtual void render(Window* p_window);
+};
 
-    void render(Window* p_window, int p_x, int p_y);
+struct BlockType {
+    const char* id;
+    BlockRenderer* renderer;
+};
 
-    bool isTransparent();
-private:
-    SDL_Texture* texture;
-    bool transparent;
+struct Block {
+    BlockType* type;
+    BlockData* data;
+    inline void render(Window* p_window) {
+        type->renderer->render(p_window);
+    }
 };

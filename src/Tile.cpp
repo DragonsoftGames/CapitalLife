@@ -43,7 +43,7 @@ void Tile::render(Window* p_window, int p_x, int p_y)
 {
     for(int i = firstRenderIndex; i < blockStack.size(); i++)
     {
-        blockStack[i]->render(p_window, p_x, p_y);
+        //blockStack[i]->render(p_window, p_x, p_y);
     }
 }
 
@@ -52,10 +52,10 @@ void Tile::calcFirstRenderIndex()
     int i = blockStack.size() - 1;
     for (; i > 0; i--)
     {
-        if (!blockStack[i]->isTransparent())
+        /*if (!blockStack[i]->isTransparent())
         {
             break;
-        }
+        }*/
     }
 
     firstRenderIndex = i;
