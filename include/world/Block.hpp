@@ -8,7 +8,7 @@ class BlockData;
 
 class BlockRenderer {
 public:
-    virtual void render(Window* p_window);
+    virtual void render(Window* p_window, int p_x, int p_y) = 0;
 };
 
 struct BlockType {
@@ -19,7 +19,7 @@ struct BlockType {
 struct Block {
     BlockType* type;
     BlockData* data;
-    inline void render(Window* p_window) {
-        type->renderer->render(p_window);
+    inline void render(Window* p_window, int p_x, int p_y) {
+        type->renderer->render(p_window, p_x, p_y);
     }
 };

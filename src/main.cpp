@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Window.hpp"
 #include "world/World.hpp"
+#include "world/block/BlockTypes.hpp"
 
 int main(int argc, char* argv[])
 {
@@ -20,6 +21,8 @@ int main(int argc, char* argv[])
     Window window("CapitalLife", 1280, 720);
 
     bool gameRunning = true;
+
+    BlockTypes::setup(&window);
 
     World* world = new World(window.loadTexture("res/artwork/grass.png"));
 
