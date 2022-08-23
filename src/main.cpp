@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
     while (gameRunning)
     {
         currentTime = SDL_GetTicks();
-        int frameTime = SDL_GetTicks() - lastTime;
+        int frameTime = currentTime - lastTime;
         deltaTime = ((float)frameTime) / 1000.0f;
         if(frameDelay > frameTime)
         {
