@@ -8,7 +8,11 @@ Tile::Tile(Chunk* p_chunk, unsigned char p_x, unsigned char p_y)
 
 Tile::~Tile()
 {
-    
+    for (auto const& block : blockStack)
+    {
+        delete block;
+    }
+    blockStack.clear();
 }
 
 void Tile::addBlock(Block* block)
