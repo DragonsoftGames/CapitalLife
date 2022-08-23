@@ -22,6 +22,15 @@ void Tile::addBlockUnsafe(Block* block)
     blockStack.push_back(block);
 }
 
+Block* Tile::getBlock()
+{
+    if (!(blockStack.size() > 0))
+    {
+        return nullptr; // TODO: Maybe Air Block?
+    }
+    return blockStack.back();
+}
+
 Block* Tile::removeBlock()
 {
     if (!(blockStack.size() > 0))

@@ -14,6 +14,7 @@ public:
 
     void addBlock(Block* block);
     void addBlockUnsafe(Block* block);
+    Block* getBlock();
     Block* removeBlock();
     void calcFirstRenderIndex();
 
