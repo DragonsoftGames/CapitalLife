@@ -7,7 +7,7 @@ public:
     StaticBlockRenderer(SDL_Texture* p_tex) :texture(p_tex) {}
     ~StaticBlockRenderer()
     {
-        delete texture;
+        SDL_DestroyTexture(texture);
     }
 
     void render(Window* p_window, int p_x, int p_y)

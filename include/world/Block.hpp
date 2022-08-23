@@ -4,11 +4,14 @@
 
 #include "Window.hpp"
 
-class BlockData;
+class BlockData {
+public:
+    virtual ~BlockData() {};
+};
 
 class BlockRenderer {
 public:
-    virtual ~BlockRenderer() = 0;
+    virtual ~BlockRenderer() {};
 
     virtual void render(Window* p_window, int p_x, int p_y) = 0;
 };
