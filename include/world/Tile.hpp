@@ -5,7 +5,7 @@
 
 class Chunk;
 
-#include "Block.hpp"
+#include "world/Block.hpp"
 
 class Tile {
 public:
@@ -14,6 +14,7 @@ public:
 
     void addBlock(Block* block);
     void addBlockUnsafe(Block* block);
+    Block* getBlock();
     Block* removeBlock();
     void calcFirstRenderIndex();
 

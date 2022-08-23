@@ -1,4 +1,4 @@
-#include "Tile.hpp"
+#include "world/World.hpp"
 
 Tile::Tile(Chunk* p_chunk, unsigned char p_x, unsigned char p_y)
     :chunk(p_chunk), x(p_x), y(p_y)
@@ -8,7 +8,11 @@ Tile::Tile(Chunk* p_chunk, unsigned char p_x, unsigned char p_y)
 
 Tile::~Tile()
 {
-    
+    for (auto const& block : blockStack)
+    {
+        delete block;
+    }
+    blockStack.clear();
 }
 
 void Tile::addBlock(Block* block)
@@ -20,6 +24,15 @@ void Tile::addBlock(Block* block)
 void Tile::addBlockUnsafe(Block* block)
 {
     blockStack.push_back(block);
+}
+
+Block* Tile::getBlock()
+{
+    if (!(blockStack.size() > 0))
+    {
+        return nullptr; // TODO: Maybe Air Block?
+    }
+    return blockStack.back();
 }
 
 Block* Tile::removeBlock()

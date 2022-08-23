@@ -2,7 +2,8 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include "Window.hpp"
-#include "World.hpp"
+#include "world/World.hpp"
+#include "world/block/BlockTypes.hpp"
 
 int main(int argc, char* argv[])
 {
@@ -21,7 +22,12 @@ int main(int argc, char* argv[])
 
     bool gameRunning = true;
 
-    World* world = new World(window.loadTexture("res/artwork/grass.png"));
+    BlockTypes::setup(&window);
+
+    World* world = new World();
+
+    world->addBlockAt(1, 2, new Block{BlockTypes::grass, nullptr});
+    delete world->removeBlockAt(1, 2);
 
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;
@@ -58,6 +64,8 @@ int main(int argc, char* argv[])
     }
 
     delete world;
+
+    BlockTypes::cleanup();
 
     window.cleanup();
     SDL_Quit();

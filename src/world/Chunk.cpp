@@ -1,6 +1,8 @@
-#include "Chunk.hpp"
+#include "world/Chunk.hpp"
 
-Chunk::Chunk(World* p_world, unsigned char p_x, unsigned char p_y, SDL_Texture* texture)
+#include "world/block/BlockTypes.hpp"
+
+Chunk::Chunk(World* p_world, unsigned char p_x, unsigned char p_y)
     :world(p_world), x(p_x), y(p_y)
 {
     for (int tileX = 0; tileX < CHUNK_SIZE; tileX++)
@@ -8,7 +10,6 @@ Chunk::Chunk(World* p_world, unsigned char p_x, unsigned char p_y, SDL_Texture* 
         for (int tileY = 0; tileY < CHUNK_SIZE; tileY++)
         {
             tiles[tileX][tileY] = new Tile(this, tileX, tileY);
-            tiles[tileX][tileY]->addBlock(new Block(texture, false));
         }
     }
 }
@@ -22,6 +23,21 @@ Chunk::~Chunk()
             delete tiles[tileX][tileY];
         }
     }
+}
+
+void Chunk::addBlockAt(int p_x, int p_y, Block* block)
+{
+    tiles[p_x][p_y]->addBlock(block);
+}
+
+Block* Chunk::getBlockAt(int p_x, int p_y)
+{
+    return tiles[p_x][p_y]->getBlock();
+}
+
+Block* Chunk::removeBlockAt(int p_x, int p_y)
+{
+    return tiles[p_x][p_y]->removeBlock();
 }
 
 void Chunk::update()
