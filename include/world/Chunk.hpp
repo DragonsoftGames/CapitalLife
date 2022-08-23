@@ -10,7 +10,7 @@ class World;
 
 class Chunk {
 public:
-    Chunk(World* p_world, unsigned char p_x, unsigned char p_y, SDL_Texture* texture);
+    Chunk(World* p_world, unsigned char p_x, unsigned char p_y);
     ~Chunk();
 
     void update();

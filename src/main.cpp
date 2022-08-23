@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 
     BlockTypes::setup(&window);
 
-    World* world = new World(window.loadTexture("res/artwork/grass.png"));
+    World* world = new World();
 
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;

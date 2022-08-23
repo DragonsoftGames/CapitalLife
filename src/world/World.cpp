@@ -2,10 +2,10 @@
 
 #include "world/Tile.hpp"
 
-World::World(SDL_Texture* texture)
+World::World()
 {
-    loadChunk(0, 0, texture);
-    loadChunk(1, 0, texture);
+    loadChunk(0, 0);
+    loadChunk(1, 0);
 }
 
 World::~World()
@@ -30,7 +30,7 @@ void World::render(Window* p_window)
     }
 }
 
-void World::loadChunk(unsigned char p_x, unsigned char p_y, SDL_Texture* texture)
+void World::loadChunk(unsigned char p_x, unsigned char p_y)
 {
-    chunks[{p_x, p_y}] = new Chunk(this, p_x, p_y, texture);
+    chunks[{p_x, p_y}] = new Chunk(this, p_x, p_y);
 }
