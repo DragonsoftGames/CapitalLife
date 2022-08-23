@@ -1,6 +1,6 @@
-#include "World.hpp"
+#include "world/World.hpp"
 
-#include "Tile.hpp"
+#include "world/Tile.hpp"
 
 World::World(SDL_Texture* texture)
 {

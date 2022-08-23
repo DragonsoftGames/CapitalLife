@@ -1,4 +1,4 @@
-#include "Chunk.hpp"
+#include "world/Chunk.hpp"
 
 Chunk::Chunk(World* p_world, unsigned char p_x, unsigned char p_y, SDL_Texture* texture)
     :world(p_world), x(p_x), y(p_y)

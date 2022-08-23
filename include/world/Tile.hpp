@@ -5,7 +5,7 @@
 
 class Chunk;
 
-#include "Block.hpp"
+#include "world/Block.hpp"
 
 class Tile {
 public:

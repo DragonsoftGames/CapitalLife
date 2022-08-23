@@ -1,4 +1,4 @@
-#include "Tile.hpp"
+#include "world/World.hpp"
 
 Tile::Tile(Chunk* p_chunk, unsigned char p_x, unsigned char p_y)
     :chunk(p_chunk), x(p_x), y(p_y)

@@ -6,7 +6,7 @@
 
 class World;
 
-#include "Tile.hpp"
+#include "world/Tile.hpp"
 
 class Chunk {
 public:

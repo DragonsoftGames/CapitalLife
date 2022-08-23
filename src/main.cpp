@@ -2,7 +2,7 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include "Window.hpp"
-#include "World.hpp"
+#include "world/World.hpp"
 
 int main(int argc, char* argv[])
 {

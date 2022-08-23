@@ -3,7 +3,7 @@
 #include <map>
 #include "Window.hpp"
 
-#include "Chunk.hpp"
+#include "world/Chunk.hpp"
 
 class World {
 public:
