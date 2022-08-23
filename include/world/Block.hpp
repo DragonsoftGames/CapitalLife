@@ -13,13 +13,19 @@ public:
 
 struct BlockType {
     const char* id;
+    bool isTranparent;
     BlockRenderer* renderer;
 };
 
 struct Block {
     BlockType* type;
     BlockData* data;
-    inline void render(Window* p_window, int p_x, int p_y) {
+    inline void render(Window* p_window, int p_x, int p_y)
+    {
         type->renderer->render(p_window, p_x, p_y);
+    }
+    inline bool isTransparent()
+    {
+        return type->isTranparent;
     }
 };

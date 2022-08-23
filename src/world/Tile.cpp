@@ -52,10 +52,10 @@ void Tile::calcFirstRenderIndex()
     int i = blockStack.size() - 1;
     for (; i > 0; i--)
     {
-        /*if (!blockStack[i]->isTransparent())
+        if (!blockStack[i]->isTransparent())
         {
             break;
-        }*/
+        }
     }
 
     firstRenderIndex = i;

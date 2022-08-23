@@ -8,6 +8,6 @@ namespace BlockTypes {
 
     inline void setup(Window* p_window)
     {
-        grass = BlockType{"cali:grass", new StaticBlockRenderer(p_window->loadTexture("res/artwork/grass.png"))};
+        grass = BlockType{"cali:grass", false, new StaticBlockRenderer(p_window->loadTexture("res/artwork/grass.png"))};
     }
 }
