@@ -2,6 +2,7 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include "Window.hpp"
+#include "Scene.hpp"
 #include "world/World.hpp"
 #include "world/block/BlockTypes.hpp"
 
