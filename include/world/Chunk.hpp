@@ -8,7 +8,8 @@ class World;
 
 #include "world/Tile.hpp"
 
-class Chunk {
+class Chunk
+{
 public:
     Chunk(World* p_world, unsigned char p_x, unsigned char p_y);
     ~Chunk();

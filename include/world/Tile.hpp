@@ -7,7 +7,8 @@ class Chunk;
 
 #include "world/Block.hpp"
 
-class Tile {
+class Tile
+{
 public:
     Tile(Chunk* p_chunk, unsigned char p_x, unsigned char p_y);
     ~Tile();

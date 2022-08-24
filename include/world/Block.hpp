@@ -4,19 +4,22 @@
 
 #include "Window.hpp"
 
-class BlockData {
+class BlockData
+{
 public:
     virtual ~BlockData() {};
 };
 
-class BlockRenderer {
+class BlockRenderer
+{
 public:
     virtual ~BlockRenderer() {};
 
     virtual void render(Window* p_window, int p_x, int p_y) = 0;
 };
 
-struct BlockType {
+struct BlockType
+{
     ~BlockType();
 
     const char* id;
@@ -24,7 +27,8 @@ struct BlockType {
     BlockRenderer* renderer;
 };
 
-struct Block {
+struct Block
+{
     ~Block();
 
     BlockType* type;

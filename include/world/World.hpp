@@ -5,7 +5,8 @@
 
 #include "world/Chunk.hpp"
 
-class World {
+class World
+{
 public:
     World();
     ~World();

@@ -3,7 +3,8 @@
 #include "world/Block.hpp"
 #include "world/block/BlockRenderers.hpp"
 
-namespace BlockTypes {
+namespace BlockTypes
+{
     inline BlockType* grass;
 
     inline void setup(Window* p_window)

@@ -2,7 +2,8 @@
 
 #include "world/Block.hpp"
 
-class StaticBlockRenderer : public BlockRenderer {
+class StaticBlockRenderer : public BlockRenderer
+{
 public:
     StaticBlockRenderer(SDL_Texture* p_tex) :texture(p_tex) {}
     ~StaticBlockRenderer()
