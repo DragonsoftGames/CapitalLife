@@ -1,4 +1,4 @@
-#include "Entity.hpp"
+#include "ecs/Entity.hpp"
 
 Entity::Entity()
     :entityHandle(entt::entity(0)), scene(nullptr)

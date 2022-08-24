@@ -4,9 +4,9 @@ project(capitallife VERSION 0.1.0)
 add_executable(capitallife 
     src/main.cpp
     src/Window.cpp
-
-    src/Entity.cpp
     src/Scene.cpp
+
+    src/ecs/Entity.cpp
 
     src/world/Block.cpp
     src/world/Chunk.cpp

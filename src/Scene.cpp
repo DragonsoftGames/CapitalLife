@@ -1,6 +1,6 @@
 #include "Scene.hpp"
 
-#include "Entity.hpp"
+#include "ecs/Entity.hpp"
 
 Scene::Scene()
 {
