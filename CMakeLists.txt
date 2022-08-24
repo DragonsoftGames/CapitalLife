@@ -5,6 +5,7 @@ add_executable(capitallife src/main.cpp src/Window.cpp src/world/Block.cpp src/w
 target_include_directories(
     capitallife
     PRIVATE include
+    PUBLIC third_party
     )
 
 target_link_libraries(capitallife SDL2main SDL2 SDL2_image)

@@ -26,8 +26,8 @@ int main(int argc, char* argv[])
 
     World* world = new World();
 
-    world->addBlockAt(1, 2, new Block{BlockTypes::grass, nullptr});
-    delete world->removeBlockAt(1, 2);
+    world->addBlockAt(0, 0, new Block{BlockTypes::grass, nullptr});
+    //delete world->removeBlockAt(1, 2);
 
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;
