@@ -21,6 +21,9 @@ target_include_directories(
     PUBLIC third_party
     )
 
+#target_compile_options(capitallife PUBLIC -Wall -Wextra -Werror -pedantic -Wconversion -pthread -fsanitize=address,undefined)
+#target_link_options(capitallife  PUBLIC -fsanitize=address,undefined)
+
 target_link_libraries(capitallife SDL2main SDL2 SDL2_image)
 
 add_custom_command(TARGET capitallife PRE_BUILD
