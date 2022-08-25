@@ -59,5 +59,5 @@ void World::render(Window* p_window)
 
 void World::loadChunk(unsigned char p_x, unsigned char p_y)
 {
-    chunks[{p_x, p_y}] = new Chunk(this, p_x, p_y);
+    chunks[{p_x, p_y}] = new Chunk(*this, p_x, p_y);
 }
