@@ -5,8 +5,8 @@
 #include "world/Tile.hpp"
 
 World::World()
+    :chunks(std::map<std::pair<unsigned char, unsigned char>, Chunk*>())
 {
-    chunks = std::map<std::pair<unsigned char, unsigned char>, Chunk*>();
     loadChunk(0, 0);
     loadChunk(1, 0);
 }

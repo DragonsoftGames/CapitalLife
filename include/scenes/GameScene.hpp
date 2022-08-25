@@ -12,5 +12,5 @@ public:
     void update() override;
     void render(Window* p_window) override;
 private:
-    World* world;
+    World world;
 };
