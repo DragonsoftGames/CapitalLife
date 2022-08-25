@@ -1,6 +1,5 @@
 #pragma once
 
-#include <string>
 #include <entt/entt.hpp>
 #include "Window.hpp"
 
@@ -16,7 +15,7 @@ public:
     virtual void render(Window* p_window) = 0;
 
 protected:
-    Entity createEntity(std::string p_tag);
+    Entity createEntity();
 
 private:
     entt::registry registry;

@@ -2,9 +2,8 @@
 
 #include "ecs/Entity.hpp"
 
-Entity Scene::createEntity(std::string p_tag)
+Entity Scene::createEntity()
 {
     Entity entity(registry.create(), this);
-    p_tag.clear();
     return entity;
 }

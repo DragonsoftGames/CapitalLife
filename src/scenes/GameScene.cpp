@@ -3,7 +3,7 @@
 #include "world/block/BlockTypes.hpp"
 
 GameScene::GameScene()
-    :world(World())
+    :world(World()), player(createEntity())
 {
     world.addBlockAt(0, 0, new Block{BlockTypes::grass, nullptr});
 }
