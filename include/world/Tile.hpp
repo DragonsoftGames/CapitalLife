@@ -27,5 +27,5 @@ private:
     unsigned char x;
     unsigned char y;
     std::deque<Block*> blockStack;
-    int firstRenderIndex = -1;
+    std::deque<Block*>::size_type firstRenderIndex = 0;
 };

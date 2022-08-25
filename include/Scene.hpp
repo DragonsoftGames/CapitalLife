@@ -2,18 +2,22 @@
 
 #include <string>
 #include <entt/entt.hpp>
+#include "Window.hpp"
 
 class Entity;
 
 class Scene
 {
+friend class Entity;
 public:
-    Scene();
-    ~Scene();
-    
+    virtual ~Scene() {};
+
+    virtual void update() = 0;
+    virtual void render(Window* p_window) = 0;
+
+protected:
     Entity createEntity(std::string p_tag);
 
-    friend class Entity;
 private:
     entt::registry registry;
 };

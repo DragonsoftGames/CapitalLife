@@ -6,6 +6,8 @@ add_executable(capitallife
     src/Window.cpp
     src/Scene.cpp
 
+    src/scenes/GameScene.cpp
+
     src/ecs/Entity.cpp
 
     src/world/Block.cpp

@@ -3,7 +3,7 @@
 Tile::Tile(Chunk* p_chunk, unsigned char p_x, unsigned char p_y)
     :chunk(p_chunk), x(p_x), y(p_y)
 {
-
+    blockStack = std::deque<Block*>();
 }
 
 Tile::~Tile()
@@ -49,12 +49,13 @@ Block* Tile::removeBlock()
 
 void Tile::update()
 {
-
+    if (blockStack.size() <= 0) return;
 }
 
 void Tile::render(Window* p_window, int p_x, int p_y)
 {
-    for(int i = firstRenderIndex; i < blockStack.size(); i++)
+    if (blockStack.size() <= 0) return;
+    for(std::deque<Block*>::size_type i = firstRenderIndex; i < blockStack.size(); i++)
     {
         blockStack[i]->render(p_window, p_x, p_y);
     }
@@ -62,7 +63,7 @@ void Tile::render(Window* p_window, int p_x, int p_y)
 
 void Tile::calcFirstRenderIndex()
 {
-    int i = blockStack.size() - 1;
+    std::deque<Block*>::size_type i = blockStack.size() - 1;
     for (; i > 0; i--)
     {
         if (!blockStack[i]->isTransparent())
