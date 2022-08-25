@@ -31,6 +31,11 @@ public:
     {
         return scene->registry.all_of<T>(entityHandle);
     }
+
+    void destroy()
+    {
+        scene->registry.destroy(entityHandle);
+    }
 private:
     entt::entity entityHandle;
     Scene* scene;

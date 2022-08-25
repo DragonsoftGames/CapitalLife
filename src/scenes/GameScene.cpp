@@ -16,7 +16,7 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
-
+    player.destroy();
 }
 
 void GameScene::update()
