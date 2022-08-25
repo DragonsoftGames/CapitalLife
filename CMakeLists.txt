@@ -4,6 +4,7 @@ project(capitallife VERSION 0.1.0)
 add_executable(capitallife 
     src/main.cpp
     src/Window.cpp
+    src/TextureManager.cpp
     src/Scene.cpp
 
     src/scenes/GameScene.cpp

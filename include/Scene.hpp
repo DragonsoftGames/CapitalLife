@@ -16,7 +16,8 @@ public:
 
 protected:
     Entity createEntity();
+    entt::registry registry;
+    
 
 private:
-    entt::registry registry;
 };

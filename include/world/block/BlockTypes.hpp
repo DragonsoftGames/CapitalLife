@@ -2,6 +2,7 @@
 
 #include "world/Block.hpp"
 #include "world/block/BlockRenderers.hpp"
+#include "TextureManager.hpp"
 
 namespace BlockTypes
 {
@@ -9,7 +10,7 @@ namespace BlockTypes
 
     inline void setup(Window* p_window)
     {
-        grass = new BlockType{"cali:grass", false, new StaticBlockRenderer(p_window->loadTexture("res/artwork/grass.png"))};
+        grass = new BlockType{"cali:grass", false, new StaticBlockRenderer(TextureManager::loadTexture("res/artwork/grass.png"))};
     }
 
     inline void cleanup()
