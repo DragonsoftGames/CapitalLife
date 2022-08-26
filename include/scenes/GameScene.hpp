@@ -14,6 +14,9 @@ public:
     void update(float deltaTime) override;
     void render(Window* p_window) override;
 private:
+    void handlePlayerInput(float deltaTime);
+    void renderSprites(Window* p_window);
+
     World world;
     Entity player;
 };

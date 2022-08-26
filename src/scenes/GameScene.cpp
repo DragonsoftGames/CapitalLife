@@ -23,36 +23,46 @@ GameScene::~GameScene()
 
 void GameScene::update(float deltaTime)
 {
-    const Uint8* keys = SDL_GetKeyboardState(nullptr);
-    { // Player Movement
-        Vector2f velocity = Vector2f::Zero;
-        if(keys[SDL_SCANCODE_W])
-        {
-            velocity.y -= 1.0f;
-        }
-        if(keys[SDL_SCANCODE_A])
-        {
-            velocity.x -= 1.0f;
-        }
-        if(keys[SDL_SCANCODE_S])
-        {
-            velocity.y += 1.0f;
-        }
-        if(keys[SDL_SCANCODE_D])
-        {
-            velocity.x += 1.0f;
-        }
-        velocity.Normalize();
-        player.getComponent<TransformComponent>().pos += velocity * deltaTime * 200.0f;
-    }
+    handlePlayerInput(deltaTime);
 }
 
 void GameScene::render(Window* p_window)
 {
     world.render(p_window);
-    auto renderView = registry.view<TransformComponent, SpriteComponent>();
-    for (auto [entity, transform, sprite]: renderView.each())
+    renderSprites(p_window);
+}
+
+void GameScene::handlePlayerInput(float deltaTime)
+{
+    const Uint8* keys = SDL_GetKeyboardState(nullptr);
+    Vector2f velocity = Vector2f::Zero;
+    if(keys[SDL_SCANCODE_W])
     {
-        sprite.render(p_window, transform);
+        velocity.y -= 1.0f;
+    }
+    if(keys[SDL_SCANCODE_A])
+    {
+        velocity.x -= 1.0f;
+    }
+    if(keys[SDL_SCANCODE_S])
+    {
+        velocity.y += 1.0f;
+    }
+    if(keys[SDL_SCANCODE_D])
+    {
+        velocity.x += 1.0f;
+    }
+    velocity.Normalize();
+    player.getComponent<TransformComponent>().pos += velocity * deltaTime * 200.0f;
+}
+
+void GameScene::renderSprites(Window* p_window)
+{
+    auto renderView = registry.view<SpriteComponent, TransformComponent>();
+    for (auto [entity, sprite, transform]: renderView.each())
+    {
+        auto src = SDL_Rect{0, 0, 32, 32};
+        auto dst = SDL_Rect{static_cast<int>(transform.pos.x), static_cast<int>(transform.pos.y), static_cast<int>(transform.size.x)*16, static_cast<int>(transform.size.y)*16};
+        p_window->render(sprite.texture, src, dst);
     }
 }
