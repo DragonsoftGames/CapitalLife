@@ -11,7 +11,7 @@ friend class Entity;
 public:
     virtual ~Scene() {};
 
-    virtual void update() = 0;
+    virtual void update(float deltaTime) = 0;
     virtual void render(Window* p_window) = 0;
 
 protected:

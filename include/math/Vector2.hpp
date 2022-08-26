@@ -51,9 +51,13 @@ public:
 
 	// Normalize vector
 	void Normalize() {
-		T val = static_cast<T>(sqrt((x * x) + (y * y)));
-		x = static_cast<T>(x/val);
-		y = static_cast<T>(y/val);
+		T len = static_cast<T>(sqrt((x * x) + (y * y)));
+		
+		if (len != 0.)
+		{
+			x = static_cast<T>(x/len);
+			y = static_cast<T>(y/len);
+		}
 	}
 
 	// Dot product of 2 vector

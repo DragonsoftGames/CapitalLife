@@ -11,7 +11,7 @@ public:
     GameScene();
     ~GameScene();
 
-    void update() override;
+    void update(float deltaTime) override;
     void render(Window* p_window) override;
 private:
     World world;
