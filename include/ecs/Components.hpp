@@ -13,3 +13,11 @@ struct SpriteComponent
 {
     SDL_Texture* texture;
 };
+
+struct VelocityComponent
+{
+    Vector2f delta;
+    float speed;
+
+    VelocityComponent(float p_speed) :delta(Vector2f::Zero), speed(p_speed) { }
+};

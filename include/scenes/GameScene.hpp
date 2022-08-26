@@ -11,10 +11,11 @@ public:
     GameScene();
     ~GameScene();
 
-    void update(float deltaTime) override;
+    void update(float p_deltaTime) override;
     void render(Window* p_window) override;
 private:
-    void handlePlayerInput(float deltaTime);
+    void handlePlayerInput();
+    void handleVelocity(float p_deltaTime);
     void renderSprites(Window* p_window);
 
     World world;

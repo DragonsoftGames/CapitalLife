@@ -13,6 +13,7 @@ GameScene::GameScene()
 {
     world.addBlockAt(0, 0, new Block{BlockTypes::grass, nullptr});
     player.addComponent<TransformComponent>(Vector2f{50.0f, 37.0f}, Vector2f{3.0f, 3.0f});
+    player.addComponent<VelocityComponent>(200.0f);
     player.addComponent<SpriteComponent>(TextureManager::loadTexture("res/artwork/grass.png"));
 }
 
@@ -21,9 +22,10 @@ GameScene::~GameScene()
     player.destroy();
 }
 
-void GameScene::update(float deltaTime)
+void GameScene::update(float p_deltaTime)
 {
-    handlePlayerInput(deltaTime);
+    handlePlayerInput();
+    handleVelocity(p_deltaTime);
 }
 
 void GameScene::render(Window* p_window)
@@ -32,7 +34,7 @@ void GameScene::render(Window* p_window)
     renderSprites(p_window);
 }
 
-void GameScene::handlePlayerInput(float deltaTime)
+void GameScene::handlePlayerInput()
 {
     const Uint8* keys = SDL_GetKeyboardState(nullptr);
     Vector2f velocity = Vector2f::Zero;
@@ -52,8 +54,17 @@ void GameScene::handlePlayerInput(float deltaTime)
     {
         velocity.x += 1.0f;
     }
-    velocity.Normalize();
-    player.getComponent<TransformComponent>().pos += velocity * deltaTime * 200.0f;
+    player.getComponent<VelocityComponent>().delta = velocity;
+}
+
+void GameScene::handleVelocity(float p_deltaTime)
+{
+    auto renderView = registry.view<VelocityComponent, TransformComponent>();
+    for (auto [entity, velocity, transform]: renderView.each())
+    {
+        velocity.delta.Normalize();
+        transform.pos += velocity.delta * p_deltaTime * velocity.speed;
+    }
 }
 
 void GameScene::renderSprites(Window* p_window)
