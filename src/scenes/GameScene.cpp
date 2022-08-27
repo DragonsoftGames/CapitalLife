@@ -1,12 +1,9 @@
 #include "scenes/GameScene.hpp"
 
 #include "world/block/BlockTypes.hpp"
-
 #include "ecs/Components.hpp"
-
 #include "TextureManager.hpp"
-
-#include <iostream>
+#include "math/AABB.hpp"
 
 GameScene::GameScene()
     :world(World()), player(createEntity())
@@ -62,8 +59,13 @@ void GameScene::handleVelocity(float p_deltaTime)
     auto renderView = registry.view<VelocityComponent, TransformComponent>();
     for (auto [entity, velocity, transform]: renderView.each())
     {
-        velocity.delta.Normalize();
-        transform.pos += velocity.delta * p_deltaTime * velocity.speed;
+        auto pos = transform.pos + velocity.delta * p_deltaTime * velocity.speed;
+        auto& size = transform.size;
+        if (!AABB{0, 0, 48, 48}.collides(AABB{pos.x, pos.y, size.x * 16, size.y * 16}))
+        {
+            velocity.delta.Normalize();
+            transform.pos += velocity.delta * p_deltaTime * velocity.speed;
+        }
     }
 }
 
