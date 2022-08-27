@@ -11,9 +11,9 @@ public:
         SDL_DestroyTexture(texture);
     }
 
-    void render(Window* p_window, int p_x, int p_y)
+    void render(Camera& p_camera, int p_x, int p_y)
     {
-        p_window->render(texture, {0, 0, 32, 32}, {DEFAULT_BLOCK_SIZE*p_x, DEFAULT_BLOCK_SIZE*p_y, DEFAULT_BLOCK_SIZE, DEFAULT_BLOCK_SIZE});
+        p_camera.render(texture, {0, 0, 32, 32}, {DEFAULT_BLOCK_SIZE*p_x, DEFAULT_BLOCK_SIZE*p_y, DEFAULT_BLOCK_SIZE, DEFAULT_BLOCK_SIZE});
     }
 private:
     SDL_Texture* texture;

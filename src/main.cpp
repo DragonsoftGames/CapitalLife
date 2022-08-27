@@ -57,7 +57,7 @@ int main()
             window.clear();
 
             scene->update(deltaTime);
-            scene->render(&window);
+            scene->render();
 
             window.display();
         }

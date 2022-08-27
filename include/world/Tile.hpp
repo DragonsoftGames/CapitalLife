@@ -1,7 +1,7 @@
 #pragma once
 #include <deque>
 
-#include "Window.hpp"
+#include "Camera.hpp"
 
 class Chunk;
 
@@ -20,7 +20,7 @@ public:
     void calcFirstRenderIndex();
 
     void update();
-    void render(Window* p_window, int p_x, int p_y);
+    void render(Camera& p_camera, int p_x, int p_y);
 private:
 
     Chunk& chunk;

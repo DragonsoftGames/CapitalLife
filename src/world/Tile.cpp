@@ -52,12 +52,12 @@ void Tile::update()
     if (blockStack.size() <= 0) return;
 }
 
-void Tile::render(Window* p_window, int p_x, int p_y)
+void Tile::render(Camera& p_camera, int p_x, int p_y)
 {
     if (blockStack.size() <= 0) return;
     for(std::deque<Block*>::size_type i = firstRenderIndex; i < blockStack.size(); i++)
     {
-        blockStack[i]->render(p_window, p_x, p_y);
+        blockStack[i]->render(p_camera, p_x, p_y);
     }
 }
 

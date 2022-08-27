@@ -12,7 +12,7 @@ public:
     virtual ~Scene() {};
 
     virtual void update(float deltaTime) = 0;
-    virtual void render(Window* p_window) = 0;
+    virtual void render() = 0;
 
 protected:
     Entity createEntity();

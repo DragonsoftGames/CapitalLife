@@ -49,11 +49,11 @@ void World::update()
 
 }
 
-void World::render(Window* p_window)
+void World::render(Camera& p_camera)
 {
     for (auto const& [key, chunk] : chunks)
     {
-        chunk->render(p_window);
+        chunk->render(p_camera);
     }
 }
 

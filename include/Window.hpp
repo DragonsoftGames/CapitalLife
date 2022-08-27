@@ -8,7 +8,6 @@ public:
     Window(const char* p_title, int p_width, int p_height);
 
     void clear();
-    void render(SDL_Texture* p_tex, SDL_Rect src, SDL_Rect dst);
     void display();
 
     void cleanup();

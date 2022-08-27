@@ -2,8 +2,6 @@
 
 #define CHUNK_SIZE 8
 
-#include "Window.hpp"
-
 class World;
 
 #include "world/Tile.hpp"
@@ -19,7 +17,7 @@ public:
     Block* removeBlockAt(int p_x, int p_y);
 
     void update();
-    void render(Window* p_window);
+    void render(Camera& p_camera);
 private:
     World& world;
     unsigned char x;

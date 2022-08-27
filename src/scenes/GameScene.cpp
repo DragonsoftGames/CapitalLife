@@ -6,8 +6,10 @@
 #include "math/AABB.hpp"
 
 GameScene::GameScene()
-    :world(World()), player(createEntity())
+    :world(World()), player(createEntity()), camera(Camera())
 {
+    camera.offset.x = 14;
+
     world.addBlockAt(0, 0, new Block{BlockTypes::grass, nullptr});
     player.addComponent<TransformComponent>(Vector2f{50.0f, 37.0f}, Vector2f{3.0f, 3.0f});
     player.addComponent<VelocityComponent>(200.0f);
@@ -25,10 +27,10 @@ void GameScene::update(float p_deltaTime)
     handleVelocity(p_deltaTime);
 }
 
-void GameScene::render(Window* p_window)
+void GameScene::render()
 {
-    world.render(p_window);
-    renderSprites(p_window);
+    world.render(camera);
+    renderSprites();
 }
 
 void GameScene::handlePlayerInput()
@@ -69,13 +71,13 @@ void GameScene::handleVelocity(float p_deltaTime)
     }
 }
 
-void GameScene::renderSprites(Window* p_window)
+void GameScene::renderSprites()
 {
     auto renderView = registry.view<SpriteComponent, TransformComponent>();
     for (auto [entity, sprite, transform]: renderView.each())
     {
         auto src = SDL_Rect{0, 0, 32, 32};
         auto dst = SDL_Rect{static_cast<int>(transform.pos.x), static_cast<int>(transform.pos.y), static_cast<int>(transform.size.x)*16, static_cast<int>(transform.size.y)*16};
-        p_window->render(sprite.texture, src, dst);
+        camera.render(sprite.texture, src, dst);
     }
 }

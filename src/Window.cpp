@@ -23,11 +23,6 @@ void Window::clear()
     SDL_RenderClear(renderer);
 }
 
-void Window::render(SDL_Texture* p_tex, SDL_Rect src, SDL_Rect dst)
-{
-    SDL_RenderCopy(renderer, p_tex, &src, &dst);
-}
-
 void Window::display()
 {
     SDL_RenderPresent(renderer);

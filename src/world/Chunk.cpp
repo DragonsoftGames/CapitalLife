@@ -45,13 +45,13 @@ void Chunk::update()
 
 }
 
-void Chunk::render(Window* p_window)
+void Chunk::render(Camera& p_camera)
 {
     for (unsigned char tileX = 0; tileX < CHUNK_SIZE; tileX++)
     {
         for (unsigned char tileY = 0; tileY < CHUNK_SIZE; tileY++)
         {
-            tiles[tileX][tileY]->render(p_window, tileX + (x * CHUNK_SIZE), tileY + (y * CHUNK_SIZE));
+            tiles[tileX][tileY]->render(p_camera, tileX + (x * CHUNK_SIZE), tileY + (y * CHUNK_SIZE));
         }
     }
 }

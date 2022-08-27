@@ -4,6 +4,7 @@
 
 #include "world/World.hpp"
 #include "ecs/Entity.hpp"
+#include "Camera.hpp"
 
 class GameScene : public Scene
 {
@@ -12,12 +13,13 @@ public:
     ~GameScene();
 
     void update(float p_deltaTime) override;
-    void render(Window* p_window) override;
+    void render() override;
 private:
     void handlePlayerInput();
     void handleVelocity(float p_deltaTime);
-    void renderSprites(Window* p_window);
+    void renderSprites();
 
+    Camera camera;
     World world;
     Entity player;
 };
