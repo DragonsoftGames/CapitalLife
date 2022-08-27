@@ -17,6 +17,8 @@ public:
 private:
     void handlePlayerInput();
     void handleVelocity(float p_deltaTime);
+    void moveCamera(float p_deltaTime);
+
     void renderSprites();
 
     Camera camera;

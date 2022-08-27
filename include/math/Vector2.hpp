@@ -62,6 +62,14 @@ public:
 		}
 	}
 
+	template<class X>
+	void Lerp(Vector2<X> target, float alpha)
+	{
+		const float invAlpha = 1.0f - alpha;
+		x = (x * invAlpha) + (static_cast<T>(target.x) * alpha);
+		y = (y * invAlpha) + (static_cast<T>(target.y) * alpha);
+	}
+
 	// Dot product of 2 vector
 	T Dot(const Vector2<T>& _vec) {
 		return Dot(*this, _vec);

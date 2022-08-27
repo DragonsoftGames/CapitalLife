@@ -8,9 +8,8 @@
 GameScene::GameScene()
     :world(World()), player(createEntity()), camera(Camera())
 {
-    camera.offset.x = 14;
-
     world.addBlockAt(0, 0, new Block{BlockTypes::grass, nullptr});
+    world.addBlockAt(2, 3, new Block{BlockTypes::grass, nullptr});
     player.addComponent<TransformComponent>(Vector2f{50.0f, 37.0f}, Vector2f{3.0f, 3.0f});
     player.addComponent<VelocityComponent>(200.0f);
     player.addComponent<SpriteComponent>(TextureManager::loadTexture("res/artwork/grass.png"));
@@ -25,6 +24,8 @@ void GameScene::update(float p_deltaTime)
 {
     handlePlayerInput();
     handleVelocity(p_deltaTime);
+
+    moveCamera(p_deltaTime);
 }
 
 void GameScene::render()
@@ -69,6 +70,17 @@ void GameScene::handleVelocity(float p_deltaTime)
             transform.pos += velocity.delta * p_deltaTime * velocity.speed;
         }
     }
+}
+
+void GameScene::moveCamera(float p_deltaTime)
+{
+    static float smoothSpeed = 4.0f;
+
+    auto& transform = player.getComponent<TransformComponent>();
+    int w, h;
+    SDL_GetRendererOutputSize(Window::renderer, &w, &h);
+    Vector2i offset = Vector2i{(int)transform.pos.x - w / 2 + ((int)transform.size.x * 16) / 2, (int)transform.pos.y - h / 2 + ((int)transform.size.y * 16) / 2};
+    camera.offset.Lerp(offset, smoothSpeed * p_deltaTime);
 }
 
 void GameScene::renderSprites()
