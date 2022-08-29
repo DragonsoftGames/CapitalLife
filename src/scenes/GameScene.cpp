@@ -4,6 +4,7 @@
 #include "ecs/Components.hpp"
 #include "TextureManager.hpp"
 #include "math/AABB.hpp"
+#include "Input.hpp"
 
 GameScene::GameScene()
     :world(World()), player(createEntity()), camera(Camera())
@@ -36,21 +37,20 @@ void GameScene::render()
 
 void GameScene::handlePlayerInput()
 {
-    const Uint8* keys = SDL_GetKeyboardState(nullptr);
     Vector2f velocity = Vector2f::Zero;
-    if(keys[SDL_SCANCODE_W])
+    if(Input::isKeyPressed(SDL_SCANCODE_W))
     {
         velocity.y -= 1.0f;
     }
-    if(keys[SDL_SCANCODE_A])
+    if(Input::isKeyPressed(SDL_SCANCODE_A))
     {
         velocity.x -= 1.0f;
     }
-    if(keys[SDL_SCANCODE_S])
+    if(Input::isKeyPressed(SDL_SCANCODE_S))
     {
         velocity.y += 1.0f;
     }
-    if(keys[SDL_SCANCODE_D])
+    if(Input::isKeyPressed(SDL_SCANCODE_D))
     {
         velocity.x += 1.0f;
     }

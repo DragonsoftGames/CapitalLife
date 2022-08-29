@@ -4,6 +4,7 @@
 #include "Window.hpp"
 #include "scenes/GameScene.hpp"
 #include "world/block/BlockTypes.hpp"
+#include "Input.hpp"
 
 int main()
 {
@@ -55,6 +56,8 @@ int main()
             }
 
             window.clear();
+
+            Input::update();
 
             scene->update(deltaTime);
             scene->render();
