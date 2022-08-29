@@ -79,7 +79,7 @@ void GameScene::moveCamera(float p_deltaTime)
     auto& transform = player.getComponent<TransformComponent>();
     int w, h;
     SDL_GetRendererOutputSize(Window::renderer, &w, &h);
-    Vector2i offset = Vector2i{(int)transform.pos.x - w / 2 + ((int)transform.size.x * 16) / 2, (int)transform.pos.y - h / 2 + ((int)transform.size.y * 16) / 2};
+    Vector2f offset = Vector2f{transform.pos.x - w / 2 + (transform.size.x * 16) / 2, transform.pos.y - h / 2 + (transform.size.y * 16) / 2};
     camera.offset.Lerp(offset, smoothSpeed * p_deltaTime);
 }
 
