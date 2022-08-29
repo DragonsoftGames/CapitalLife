@@ -2,21 +2,24 @@
 
 #define DEFAULT_BLOCK_SIZE 48
 
-#include "Window.hpp"
+#include "Camera.hpp"
 
-class BlockData {
+class BlockData
+{
 public:
     virtual ~BlockData() {};
 };
 
-class BlockRenderer {
+class BlockRenderer
+{
 public:
     virtual ~BlockRenderer() {};
 
-    virtual void render(Window* p_window, int p_x, int p_y) = 0;
+    virtual void render(Camera& p_camera, int p_x, int p_y) = 0;
 };
 
-struct BlockType {
+struct BlockType
+{
     ~BlockType();
 
     const char* id;
@@ -24,14 +27,15 @@ struct BlockType {
     BlockRenderer* renderer;
 };
 
-struct Block {
+struct Block
+{
     ~Block();
 
     BlockType* type;
     BlockData* data;
-    inline void render(Window* p_window, int p_x, int p_y)
+    inline void render(Camera& p_camera, int p_x, int p_y)
     {
-        type->renderer->render(p_window, p_x, p_y);
+        type->renderer->render(p_camera, p_x, p_y);
     }
     inline bool isTransparent()
     {

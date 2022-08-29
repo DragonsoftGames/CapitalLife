@@ -2,8 +2,10 @@
 
 #include <iostream>
 
+SDL_Renderer* Window::renderer = nullptr;
+
 Window::Window(const char* p_title, int p_width, int p_height)
-    :window(NULL), renderer(NULL)
+    :window(NULL)
 {
     window = SDL_CreateWindow(p_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, p_width, p_height, SDL_WINDOW_SHOWN);
 
@@ -16,27 +18,9 @@ Window::Window(const char* p_title, int p_width, int p_height)
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 }
 
-SDL_Texture* Window::loadTexture(const char* p_filePath)
-{
-    SDL_Texture* texture = NULL;
-    texture = IMG_LoadTexture(renderer, p_filePath);
-
-    if (texture == NULL)
-    {
-        std::cerr << "Failed to load texture: " << SDL_GetError() << std::endl;
-    }
-
-    return texture;
-}
-
 void Window::clear()
 {
     SDL_RenderClear(renderer);
-}
-
-void Window::render(SDL_Texture* p_tex, SDL_Rect src, SDL_Rect dst)
-{
-    SDL_RenderCopy(renderer, p_tex, &src, &dst);
 }
 
 void Window::display()

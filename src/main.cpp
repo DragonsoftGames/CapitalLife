@@ -2,10 +2,11 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include "Window.hpp"
-#include "world/World.hpp"
+#include "scenes/GameScene.hpp"
 #include "world/block/BlockTypes.hpp"
+#include "Input.hpp"
 
-int main(int argc, char* argv[])
+int main()
 {
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
@@ -20,14 +21,7 @@ int main(int argc, char* argv[])
 
     Window window("CapitalLife", 1280, 720);
 
-    bool gameRunning = true;
-
-    BlockTypes::setup(&window);
-
-    World* world = new World();
-
-    world->addBlockAt(1, 2, new Block{BlockTypes::grass, nullptr});
-    delete world->removeBlockAt(1, 2);
+    BlockTypes::setup();
 
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;
@@ -35,35 +29,44 @@ int main(int argc, char* argv[])
     Uint32 currentTime = 0;
     Uint32 lastTime = 0;
     float deltaTime = 0;
-
-    SDL_Event event;
-    while (gameRunning)
+    
     {
-        currentTime = SDL_GetTicks();
-        int frameTime = currentTime - lastTime;
-        deltaTime = ((float)frameTime) / 1000.0f;
-        if(frameDelay > frameTime)
+        Scene* scene = new GameScene();
+
+        bool gameRunning = true;
+
+        SDL_Event event;
+        while (gameRunning)
         {
-            SDL_Delay(frameDelay - frameTime);
+            currentTime = SDL_GetTicks();
+            int frameTime = currentTime - lastTime;
+            deltaTime = ((float)frameTime) / 1000.0f;
+            if(frameDelay > frameTime)
+            {
+                SDL_Delay(frameDelay - frameTime);
+            }
+            lastTime = currentTime;
+
+            std::cout << deltaTime << std::endl;
+
+            while (SDL_PollEvent(&event))
+            {
+                if (event.type == SDL_QUIT)
+                    gameRunning = false;
+            }
+
+            window.clear();
+
+            Input::update();
+
+            scene->update(deltaTime);
+            scene->render();
+
+            window.display();
         }
-        lastTime = currentTime;
 
-        std::cout << deltaTime << std::endl;
-
-        while (SDL_PollEvent(&event))
-        {
-            if (event.type == SDL_QUIT)
-                gameRunning = false;
-        }
-
-        window.clear();
-
-        world->render(&window);
-
-        window.display();
+        delete scene;
     }
-
-    delete world;
 
     BlockTypes::cleanup();
 

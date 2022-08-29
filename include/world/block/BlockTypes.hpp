@@ -2,13 +2,15 @@
 
 #include "world/Block.hpp"
 #include "world/block/BlockRenderers.hpp"
+#include "TextureManager.hpp"
 
-namespace BlockTypes {
+namespace BlockTypes
+{
     inline BlockType* grass;
 
-    inline void setup(Window* p_window)
+    inline void setup()
     {
-        grass = new BlockType{"cali:grass", false, new StaticBlockRenderer(p_window->loadTexture("res/artwork/grass.png"))};
+        grass = new BlockType{"cali:grass", false, new StaticBlockRenderer(TextureManager::loadTexture("res/artwork/grass.png"))};
     }
 
     inline void cleanup()

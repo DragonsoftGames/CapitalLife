@@ -5,6 +5,7 @@
 #include "world/Tile.hpp"
 
 World::World()
+    :chunks(std::map<std::pair<unsigned char, unsigned char>, Chunk*>())
 {
     loadChunk(0, 0);
     loadChunk(1, 0);
@@ -48,15 +49,15 @@ void World::update()
 
 }
 
-void World::render(Window* p_window)
+void World::render(Camera& p_camera)
 {
     for (auto const& [key, chunk] : chunks)
     {
-        chunk->render(p_window);
+        chunk->render(p_camera);
     }
 }
 
 void World::loadChunk(unsigned char p_x, unsigned char p_y)
 {
-    chunks[{p_x, p_y}] = new Chunk(this, p_x, p_y);
+    chunks[{p_x, p_y}] = new Chunk(*this, p_x, p_y);
 }

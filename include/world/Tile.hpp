@@ -1,15 +1,16 @@
 #pragma once
 #include <deque>
 
-#include "Window.hpp"
+#include "Camera.hpp"
 
 class Chunk;
 
 #include "world/Block.hpp"
 
-class Tile {
+class Tile
+{
 public:
-    Tile(Chunk* p_chunk, unsigned char p_x, unsigned char p_y);
+    Tile(Chunk& p_chunk, unsigned char p_x, unsigned char p_y);
     ~Tile();
 
     void addBlock(Block* block);
@@ -19,12 +20,12 @@ public:
     void calcFirstRenderIndex();
 
     void update();
-    void render(Window* p_window, int p_x, int p_y);
+    void render(Camera& p_camera, int p_x, int p_y);
 private:
 
-    Chunk* chunk;
+    Chunk& chunk;
     unsigned char x;
     unsigned char y;
     std::deque<Block*> blockStack;
-    int firstRenderIndex = -1;
+    std::deque<Block*>::size_type firstRenderIndex = 0;
 };
