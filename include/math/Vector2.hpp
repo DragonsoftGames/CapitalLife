@@ -6,11 +6,9 @@ template<class T>
 class Vector2
 {
 public:
-	// x and y
 	T x;
 	T y;
 
-	// Default constructor
 	Vector2() :
 		x(static_cast<T>(0)),
 		y(static_cast<T>(0))
@@ -32,27 +30,21 @@ public:
 	// Public Methods //
 	////////////////////
 
-	// Set both values
-	void Set(T _x, T _y) { x = _x; y = _y; }
-
-	// Set x value
-	void SetX(T _x) { x = _x; }
-
-	// Set y value
-	void SetY(T _y) { y = _y; }
-
 	// Magnitude/Length of vector
-	T Magnitude() const {
+	T magnitude() const
+	{
 		return static_cast<T>(sqrt((x * x) + (y * y)));
 	}
 
 	// Magnitude/Length squared of vector
-	T MagnitudeSquared() const {
+	T magnitudeSquared() const
+	{
 		return static_cast<T>((x * x) + (y * y));
 	}
 
 	// Normalize vector
-	void Normalize() {
+	void normalize()
+	{
 		T len = static_cast<T>(sqrt((x * x) + (y * y)));
 		
 		if (len != 0.)
@@ -63,7 +55,7 @@ public:
 	}
 
 	template<class X>
-	void Lerp(Vector2<X> target, float alpha)
+	void lerp(Vector2<X> target, float alpha)
 	{
 		const float invAlpha = 1.0f - alpha;
 		x = (x * invAlpha) + (static_cast<T>(target.x) * alpha);
@@ -71,23 +63,27 @@ public:
 	}
 
 	// Dot product of 2 vector
-	T Dot(const Vector2<T>& _vec) {
-		return Dot(*this, _vec);
+	T dot(const Vector2<T>& _vec)
+	{
+		return dot(*this, _vec);
 	}
 
 	// Cross product of 2 vector
-	T Cross(const Vector2<T>& _vec) {
-		return Cross(*this, _vec);
+	T cross(const Vector2<T>& _vec)
+	{
+		return cross(*this, _vec);
 	}
 
 	// Euclidean Distance between 2 vectors
-	T Distance(const Vector2<T>& _vec) {
-		return Distance(*this, _vec);
+	T distance(const Vector2<T>& _vec)
+	{
+		return distance(*this, _vec);
 	}
 
 	// Angle between 2 vectors
-	double Angle(const Vector2<T>& _vec) {
-		return Angle(*this, _vec);
+	double angle(const Vector2<T>& _vec)
+	{
+		return angle(*this, _vec);
 	}
 
 	//////////////////////
@@ -95,65 +91,74 @@ public:
 	//////////////////////
 
 	static bool compareFD(const T &a, const T &b);
+	static T dot(const Vector2<T>& _vecA, const Vector2<T>& _vecB);
+	static T cross(const Vector2<T>& _vecA, const Vector2<T>& _vecB);
+	static T distance(const Vector2<T>& _vecA, const Vector2<T>& _vecB);
+	static double angle(const Vector2<T>& _vecA, const Vector2<T>& _vecB);
+
+	////////////////////////
+	// Operator functions //
+	////////////////////////
+
+	Vector2<T> operator+(const Vector2<T>& other)
+	{
+		return Vector2<T>(x + other.x, y + other.y);
+	}
+	Vector2<T>& operator+=(const Vector2<T>& other)
+	{
+		x += other.x;
+		y += other.y;
+		return *this;
+	}
+
+	Vector2<T> operator-(const Vector2<T>& other)
+	{
+		return Vector2<T>(x - other.x, y - other.y);
+	}
+	Vector2<T>& operator-=(const Vector2<T>& other)
+	{
+		x -= other.x;
+		y -= other.y;
+		return *this;
+	}
+
+	Vector2<T> operator*(const T _val)
+	{
+		return Vector2<T>(x * _val, y * _val);
+	}
+	Vector2<T>& operator*=(const T _val)
+	{
+		x *= _val;
+		y *= _val;
+		return *this;
+	}
+	
+	Vector2<T> operator/(const T _val)
+	{
+		return Vector2<T>(x / _val, y / _val);
+	}
+	Vector2<T>& operator/=(const T _val)
+	{
+		x /= _val;
+		y /= _val;
+		return *this;
+	}
+
+	/////////////////////
+	// Default Vectors //
+	/////////////////////
+
 	static const Vector2<T> Zero;
 	static const Vector2<T> Unit;
 	static const Vector2<T> Up;
 	static const Vector2<T> Down;
 	static const Vector2<T> Left;
 	static const Vector2<T> Right;
-	static T Dot(const Vector2<T>& _vecA, const Vector2<T>& _vecB);
-	static T Cross(const Vector2<T>& _vecA, const Vector2<T>& _vecB);
-	static T Distance(const Vector2<T>& _vecA, const Vector2<T>& _vecB);
-	static double Angle(const Vector2<T>& _vecA, const Vector2<T>& _vecB);
-
-	////////////////////////
-	// Operator functions //
-	////////////////////////
-
-	Vector2<T> operator+(const Vector2<T>& _vec) {
-		// v = a + b
-		return Vector2<T>(x + _vec.x, y + _vec.y);
-	}
-	Vector2<T>& operator+=(const Vector2<T>& _vec) {
-		// v += a
-		x += _vec.x;
-		y += _vec.y;
-		return *this;
-	}
-	Vector2<T> operator-(const Vector2<T>& _vec) {
-		// v = a - b
-		return Vector2<T>(x - _vec.x, y - _vec.y);
-	}
-	Vector2<T>& operator-=(const Vector2<T>& _vec) {
-		// v -= a
-		x -= _vec.x;
-		y -= _vec.y;
-		return *this;
-	}
-	Vector2<T> operator*(const T _val) {
-		// v = a * scaler
-		return Vector2<T>(x * _val, y * _val);
-	}
-	Vector2<T>& operator*=(const T _val) {
-		// v *= scaler
-		x *= _val;
-		y *= _val;
-		return *this;
-	}
-	Vector2<T> operator/(const T _val) {
-		// v = a / scaler
-		return Vector2<T>(x / _val, y / _val);
-	}
-	Vector2<T>& operator/=(const T _val) {
-		// v /= scaler
-		x /= _val;
-		y /= _val;
-		return *this;
-	}
 };
 
 template<class T>
-bool Vector2<T>::compareFD(const T &a, const T &b) {
+bool Vector2<T>::compareFD(const T &a, const T &b)
+{
 	return (std::fabs(a - b) < static_cast<T>(0.005));
 }
 
@@ -176,17 +181,20 @@ template<class T>
 const Vector2<T> Vector2<T>::Right(static_cast<T>(1), static_cast<T>(0));
 
 template<class T>
-T Vector2<T>::Dot(const Vector2<T>& _vecA, const Vector2<T>& _vecB) {
+T Vector2<T>::dot(const Vector2<T>& _vecA, const Vector2<T>& _vecB)
+{
 	return (_vecA.x * _vecB.x + _vecA.y * _vecB.y);
 }
 
 template<class T>
-T Vector2<T>::Cross(const Vector2<T>& _vecA, const Vector2<T>& _vecB) {
+T Vector2<T>::cross(const Vector2<T>& _vecA, const Vector2<T>& _vecB)
+{
 	return (_vecA.x * _vecB.y - _vecA.y * _vecB.x);
 }
 
 template<class T>
-T Vector2<T>::Distance(const Vector2<T>& _vecA, const Vector2<T>& _vecB) {
+T Vector2<T>::distance(const Vector2<T>& _vecA, const Vector2<T>& _vecB)
+{
 	return static_cast<T>(sqrt(
 		((_vecA.x - _vecB.x)*(_vecA.x - _vecB.x)) + 
 		((_vecA.y - _vecB.y)*(_vecA.y - _vecB.y))
@@ -195,10 +203,11 @@ T Vector2<T>::Distance(const Vector2<T>& _vecA, const Vector2<T>& _vecB) {
 
 // TODO: Update/Refactor to optimize
 template<class T>
-double Vector2<T>::Angle(const Vector2<T>& _vecA, const Vector2<T>& _vecB) {
+double Vector2<T>::angle(const Vector2<T>& _vecA, const Vector2<T>& _vecB)
+{
 	Vector2<double> t_vecA(static_cast<double>(_vecA.x), static_cast<double>(_vecA.y));
 	Vector2<double> t_vecB(static_cast<double>(_vecB.x), static_cast<double>(_vecB.y));
-	return (acos(Vector2<double>::Dot(t_vecA, t_vecB) / (t_vecA.Magnitude() * t_vecB.Magnitude())));
+	return (acos(Vector2<double>::dot(t_vecA, t_vecB) / (t_vecA.magnitude() * t_vecB.magnitude())));
 }
 
 using Vector2i = Vector2<int>;

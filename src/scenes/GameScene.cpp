@@ -66,7 +66,7 @@ void GameScene::handleVelocity(float p_deltaTime)
         auto& size = transform.size;
         if (!AABB{0, 0, 48, 48}.collides(AABB{pos.x, pos.y, size.x * 16, size.y * 16}))
         {
-            velocity.delta.Normalize();
+            velocity.delta.normalize();
             transform.pos += velocity.delta * p_deltaTime * velocity.speed;
         }
     }
@@ -80,7 +80,7 @@ void GameScene::moveCamera(float p_deltaTime)
     int w, h;
     SDL_GetRendererOutputSize(Window::renderer, &w, &h);
     Vector2f offset = Vector2f{transform.pos.x - w / 2 + (transform.size.x * 16) / 2, transform.pos.y - h / 2 + (transform.size.y * 16) / 2};
-    camera.offset.Lerp(offset, smoothSpeed * p_deltaTime);
+    camera.offset.lerp(offset, smoothSpeed * p_deltaTime);
 }
 
 void GameScene::renderSprites()
