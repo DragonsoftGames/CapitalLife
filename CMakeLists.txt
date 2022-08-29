@@ -20,7 +20,7 @@ add_executable(capitallife
 target_include_directories(
     capitallife
     PRIVATE include
-    PUBLIC third_party
+    SYSTEM third_party
     )
 
 #target_compile_options(capitallife PUBLIC -Wall -Wextra -Werror -pedantic -Wconversion -pthread -fsanitize=address,undefined)

@@ -21,7 +21,7 @@ private:
 
     void renderSprites();
 
-    Camera camera;
     World world;
     Entity player;
+    Camera camera;
 };

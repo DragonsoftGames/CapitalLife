@@ -8,7 +8,7 @@ namespace BlockTypes
 {
     inline BlockType* grass;
 
-    inline void setup(Window* p_window)
+    inline void setup()
     {
         grass = new BlockType{"cali:grass", false, new StaticBlockRenderer(TextureManager::loadTexture("res/artwork/grass.png"))};
     }
