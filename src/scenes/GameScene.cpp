@@ -9,14 +9,14 @@
 #define pos(entity) entity.getComponent<TransformComponent>().pos
 
 GameScene::GameScene()
-    :world(World()), player(createEntity()), camera(Camera())
+    :world(World()), player(createEntity()), camera(Camera(16))
 {
     world.addBlockAt(0, 0, new Block{BlockTypes::grass, nullptr});
     world.addBlockAt(2, 3, new Block{BlockTypes::grass, nullptr});
-    player.addComponent<TransformComponent>(Vector2f{50.0f, 37.0f}, Vector2f{3.0f, 3.0f});
-    player.addComponent<VelocityComponent>(200.0f);
+    player.addComponent<TransformComponent>(Vector2f{4.0f, 3.0f}, Vector2f{3.0f, 3.0f});
+    player.addComponent<VelocityComponent>(13.0f);
     player.addComponent<SpriteComponent>(TextureManager::loadTexture("res/artwork/grass.png"));
-    player.addComponent<CollisionComponent>(AABB{8.0f, 32.0f, 32.0f, 8.0f});
+    player.addComponent<CollisionComponent>(AABB{0.625f, 2.0f, 1.75f, 0.625f});
 }
 
 GameScene::~GameScene()
@@ -69,7 +69,7 @@ void GameScene::handlePlayerInput()
 
 void GameScene::handleVelocity(float p_deltaTime)
 {
-    static auto wall = AABB{0, 0, 48, 48};
+    static auto wall = AABB{0, 0, 3, 3};
 
     auto renderView = registry.view<VelocityComponent, TransformComponent, CollisionComponent>();
     for (auto [entity, velocity, transform, collision]: renderView.each())
@@ -78,7 +78,6 @@ void GameScene::handleVelocity(float p_deltaTime)
         velocity.delta.normalize();
         // from here on goes shitty implemented collision :)
         auto newPos = transform.pos + velocity.delta * p_deltaTime * velocity.speed;
-        auto size = transform.size * 16;
         if (wall.collides(Vector2f::Zero, collision.box, Vector2f{newPos.x, transform.pos.y}))
         {
             // TODO: maybe calculate path to get out exactly at edge?
@@ -103,7 +102,7 @@ void GameScene::moveCamera(float p_deltaTime)
     auto& transform = player.getComponent<TransformComponent>();
     int w, h;
     SDL_GetRendererOutputSize(Window::renderer, &w, &h);
-    Vector2f offset = Vector2f{transform.pos.x - w / 2 + (transform.size.x * 16) / 2, transform.pos.y - h / 2 + (transform.size.y * 16) / 2};
+    Vector2f offset = Vector2f{(transform.pos.x * camera.scale) - w / 2 + (transform.size.x * camera.scale) / 2, (transform.pos.y * camera.scale) - h / 2 + (transform.size.y * camera.scale) / 2};
     camera.offset.lerp(offset, smoothSpeed * p_deltaTime);
 }
 
@@ -113,7 +112,6 @@ void GameScene::renderSprites()
     for (auto [entity, sprite, transform]: renderView.each())
     {
         auto src = SDL_Rect{0, 0, 32, 32};
-        auto dst = SDL_Rect{static_cast<int>(transform.pos.x), static_cast<int>(transform.pos.y), static_cast<int>(transform.size.x)*16, static_cast<int>(transform.size.y)*16};
-        camera.render(sprite.texture, src, dst);
+        camera.render(sprite.texture, src, Vector2f{transform.pos.x, transform.pos.y}, Vector2f{transform.size.x, transform.size.y});
     }
 }
