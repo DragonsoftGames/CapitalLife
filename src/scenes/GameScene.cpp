@@ -16,7 +16,7 @@ GameScene::GameScene()
     player.addComponent<TransformComponent>(Vector2f{50.0f, 37.0f}, Vector2f{3.0f, 3.0f});
     player.addComponent<VelocityComponent>(200.0f);
     player.addComponent<SpriteComponent>(TextureManager::loadTexture("res/artwork/grass.png"));
-    player.addComponent<CollisionComponent>(AABB{0.0f, 0.0f, 48.0f, 48.0f});
+    player.addComponent<CollisionComponent>(AABB{8.0f, 32.0f, 32.0f, 8.0f});
 }
 
 GameScene::~GameScene()
@@ -36,6 +36,13 @@ void GameScene::render()
 {
     world.render(camera);
     renderSprites();
+
+    // draw collision box
+    auto renderView = registry.view<TransformComponent, CollisionComponent>();
+    for (auto [entity, transform, collision]: renderView.each())
+    {
+        camera.drawRect(collision.box.x + transform.pos.x, collision.box.y + transform.pos.y, collision.box.width, collision.box.height);
+    }
 }
 
 void GameScene::handlePlayerInput()
