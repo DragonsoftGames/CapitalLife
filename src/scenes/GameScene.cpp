@@ -6,6 +6,8 @@
 #include "math/AABB.hpp"
 #include "Input.hpp"
 
+#define pos(entity) entity.getComponent<TransformComponent>().pos
+
 GameScene::GameScene()
     :world(World()), player(createEntity()), camera(Camera())
 {
@@ -14,6 +16,7 @@ GameScene::GameScene()
     player.addComponent<TransformComponent>(Vector2f{50.0f, 37.0f}, Vector2f{3.0f, 3.0f});
     player.addComponent<VelocityComponent>(200.0f);
     player.addComponent<SpriteComponent>(TextureManager::loadTexture("res/artwork/grass.png"));
+    player.addComponent<CollisionComponent>(AABB{0.0f, 0.0f, 48.0f, 48.0f});
 }
 
 GameScene::~GameScene()
@@ -61,22 +64,22 @@ void GameScene::handleVelocity(float p_deltaTime)
 {
     static auto wall = AABB{0, 0, 48, 48};
 
-    auto renderView = registry.view<VelocityComponent, TransformComponent>();
-    for (auto [entity, velocity, transform]: renderView.each())
+    auto renderView = registry.view<VelocityComponent, TransformComponent, CollisionComponent>();
+    for (auto [entity, velocity, transform, collision]: renderView.each())
     {
         if (velocity.delta == Vector2f::Zero) continue;
         velocity.delta.normalize();
         // from here on goes shitty implemented collision :)
         auto newPos = transform.pos + velocity.delta * p_deltaTime * velocity.speed;
         auto size = transform.size * 16;
-        if (wall.collides(AABB{newPos.x, transform.pos.y, size.x, size.y}))
+        if (wall.collides(Vector2f::Zero, collision.box, Vector2f{newPos.x, transform.pos.y}))
         {
             // TODO: maybe calculate path to get out exactly at edge?
         } else
         {
             transform.pos.x = newPos.x;
         }
-        if (wall.collides(AABB{transform.pos.x, newPos.y, size.x, size.y}))
+        if (wall.collides(Vector2f::Zero, collision.box, Vector2f{transform.pos.x, newPos.y}))
         {
             // TODO: maybe calculate path to get out exactly at edge?
         } else

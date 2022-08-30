@@ -2,6 +2,7 @@
 
 #include "math/Vector2.hpp"
 #include "Window.hpp"
+#include "math/AABB.hpp"
 
 struct TransformComponent
 {
@@ -20,4 +21,9 @@ struct VelocityComponent
     float speed;
 
     VelocityComponent(float p_speed) :delta(Vector2f::Zero), speed(p_speed) { }
+};
+
+struct CollisionComponent
+{
+    AABB box;
 };
