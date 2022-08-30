@@ -1,13 +1,13 @@
 #pragma once
 
-#include "math/Vector2.hpp"
+#include "math/Vec2.hpp"
 #include "Window.hpp"
 #include "math/AABB.hpp"
 
 struct TransformComponent
 {
-    Vector2f pos;
-    Vector2f size;
+    Vec2 pos;
+    Vec2 size;
 };
 
 struct SpriteComponent
@@ -17,10 +17,10 @@ struct SpriteComponent
 
 struct VelocityComponent
 {
-    Vector2f delta;
+    Vec2 delta;
     float speed;
 
-    VelocityComponent(float p_speed) :delta(Vector2f::Zero), speed(p_speed) { }
+    VelocityComponent(float p_speed) :delta(Vec2::Zero), speed(p_speed) { }
 };
 
 struct CollisionComponent

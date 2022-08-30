@@ -13,7 +13,7 @@ GameScene::GameScene()
 {
     world.addBlockAt(0, 0, new Block{BlockTypes::grass, nullptr});
     world.addBlockAt(2, 3, new Block{BlockTypes::grass, nullptr});
-    player.addComponent<TransformComponent>(Vector2f{4.0f, 3.0f}, Vector2f{3.0f, 3.0f});
+    player.addComponent<TransformComponent>(Vec2{4.0f, 3.0f}, Vec2{3.0f, 3.0f});
     player.addComponent<VelocityComponent>(13.0f);
     player.addComponent<SpriteComponent>(TextureManager::loadTexture("res/artwork/grass.png"));
     player.addComponent<CollisionComponent>(AABB{0.625f, 2.0f, 1.75f, 0.625f});
@@ -47,7 +47,7 @@ void GameScene::render()
 
 void GameScene::handlePlayerInput()
 {
-    Vector2f velocity = Vector2f::Zero;
+    Vec2 velocity = Vec2::Zero;
     if(Input::isKeyPressed(SDL_SCANCODE_W))
     {
         velocity.y -= 1.0f;
@@ -76,7 +76,7 @@ void GameScene::handleVelocity(float p_deltaTime)
     auto renderView = registry.view<VelocityComponent, TransformComponent, CollisionComponent>();
     for (auto [entity, velocity, transform, collision]: renderView.each())
     {
-        if (velocity.delta == Vector2f::Zero) continue;
+        if (velocity.delta == Vec2::Zero) continue;
         velocity.delta.normalize();
 
         // from here on goes shitty implemented collision :)
@@ -93,12 +93,12 @@ void GameScene::handleVelocity(float p_deltaTime)
             {
                 auto tileCol = world.getTileAt(tileX, tileY)->collision(entity);
                 if (tileCol == nullptr) continue;
-                if (tileCol->collides(Vector2f{static_cast<float>(tileX * DEFAULT_BLOCK_SIZE), static_cast<float>(tileY * DEFAULT_BLOCK_SIZE)}, collision.box, Vector2f{newPos.x, transform.pos.y}))
+                if (tileCol->collides(Vec2{tileX * DEFAULT_BLOCK_SIZE, tileY * DEFAULT_BLOCK_SIZE}, collision.box, Vec2{newPos.x, transform.pos.y}))
                 {
                     newPos.x = transform.pos.x;
                     // TODO: maybe calculate path to get out exactly at edge?
                 }
-                if (tileCol->collides(Vector2f{static_cast<float>(tileX * DEFAULT_BLOCK_SIZE), static_cast<float>(tileY * DEFAULT_BLOCK_SIZE)}, collision.box, Vector2f{transform.pos.x, newPos.y}))
+                if (tileCol->collides(Vec2{tileX * DEFAULT_BLOCK_SIZE, tileY * DEFAULT_BLOCK_SIZE}, collision.box, Vec2{transform.pos.x, newPos.y}))
                 {
                     newPos.y = transform.pos.y;
                     // TODO: maybe calculate path to get out exactly at edge?
@@ -118,7 +118,7 @@ void GameScene::moveCamera(float p_deltaTime)
     auto& transform = player.getComponent<TransformComponent>();
     int w, h;
     SDL_GetRendererOutputSize(Window::renderer, &w, &h);
-    Vector2f offset = Vector2f{(transform.pos.x * camera.scale) - w / 2 + (transform.size.x * camera.scale) / 2, (transform.pos.y * camera.scale) - h / 2 + (transform.size.y * camera.scale) / 2};
+    Vec2 offset = Vec2{(transform.pos.x * camera.scale) - w / 2 + (transform.size.x * camera.scale) / 2, (transform.pos.y * camera.scale) - h / 2 + (transform.size.y * camera.scale) / 2};
     camera.offset.lerp(offset, smoothSpeed * p_deltaTime);
 }
 
@@ -128,6 +128,6 @@ void GameScene::renderSprites()
     for (auto [entity, sprite, transform]: renderView.each())
     {
         auto src = SDL_Rect{0, 0, 32, 32};
-        camera.render(sprite.texture, src, Vector2f{transform.pos.x, transform.pos.y}, Vector2f{transform.size.x, transform.size.y});
+        camera.render(sprite.texture, src, Vec2{transform.pos.x, transform.pos.y}, Vec2{transform.size.x, transform.size.y});
     }
 }

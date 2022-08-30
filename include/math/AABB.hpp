@@ -1,13 +1,13 @@
 #pragma once
 
-#include "math/Vector2.hpp"
+#include "math/Vec2.hpp"
 
 struct AABB
 {
     float x, y;
     float width, height;
 
-    bool collides(const Vector2f& offset, const AABB other, const Vector2f& otherOffset) const
+    bool collides(const Vec2& offset, const AABB other, const Vec2& otherOffset) const
     {
         auto mX = x + offset.x;
         auto mY = y + offset.y;

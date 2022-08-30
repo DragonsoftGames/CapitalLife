@@ -1,7 +1,7 @@
 #pragma once
 
 #include "world/Block.hpp"
-#include "math/Vector2.hpp"
+#include "math/Vec2.hpp"
 
 class StaticBlockRenderer : public BlockRenderer
 {
@@ -14,7 +14,7 @@ public:
 
     void render(Camera& p_camera, int p_x, int p_y)
     {
-        p_camera.render(texture, {0, 0, 32, 32}, Vector2f{static_cast<float>(DEFAULT_BLOCK_SIZE*p_x), static_cast<float>(DEFAULT_BLOCK_SIZE*p_y)}, Vector2f{static_cast<float>(DEFAULT_BLOCK_SIZE), static_cast<float>(DEFAULT_BLOCK_SIZE)});
+        p_camera.render(texture, {0, 0, 32, 32}, Vec2{DEFAULT_BLOCK_SIZE*p_x, DEFAULT_BLOCK_SIZE*p_y}, Vec2{DEFAULT_BLOCK_SIZE, DEFAULT_BLOCK_SIZE});
     }
 private:
     SDL_Texture* texture;

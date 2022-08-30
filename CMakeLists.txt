@@ -7,6 +7,8 @@ add_executable(capitallife
     src/TextureManager.cpp
     src/Input.cpp
     src/Scene.cpp
+    
+    src/math/Vec2.cpp
 
     src/scenes/GameScene.cpp
 
