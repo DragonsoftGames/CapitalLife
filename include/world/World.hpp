@@ -10,6 +10,7 @@ public:
     World();
     ~World();
 
+    Tile* getTileAt(int p_x, int p_y);
     void addBlockAt(int p_x, int p_y, Block* p_block);
     Block* getBlockAt(int p_x, int p_y);
     Block* removeBlockAt(int p_x, int p_y);

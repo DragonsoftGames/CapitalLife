@@ -25,6 +25,11 @@ Chunk::~Chunk()
     }
 }
 
+Tile* Chunk::getTileAt(int p_x, int p_y)
+{
+    return tiles[p_x][p_y];
+}
+
 void Chunk::addBlockAt(int p_x, int p_y, Block* block)
 {
     tiles[p_x][p_y]->addBlock(block);

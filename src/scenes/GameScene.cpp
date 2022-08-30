@@ -67,6 +67,8 @@ void GameScene::handlePlayerInput()
     player.getComponent<VelocityComponent>().delta = velocity;
 }
 
+#include <iostream>
+
 void GameScene::handleVelocity(float p_deltaTime)
 {
     static auto wall = AABB{0, 0, 3, 3};
@@ -76,22 +78,36 @@ void GameScene::handleVelocity(float p_deltaTime)
     {
         if (velocity.delta == Vector2f::Zero) continue;
         velocity.delta.normalize();
+
         // from here on goes shitty implemented collision :)
         auto newPos = transform.pos + velocity.delta * p_deltaTime * velocity.speed;
-        if (wall.collides(Vector2f::Zero, collision.box, Vector2f{newPos.x, transform.pos.y}))
+
+        int leftTile = (newPos.x + collision.box.x) / DEFAULT_BLOCK_SIZE;
+        int rightTile = (newPos.x + collision.box.x + collision.box.width) / DEFAULT_BLOCK_SIZE;
+        int topTile = (newPos.y + collision.box.y) / DEFAULT_BLOCK_SIZE;
+        int bottomTile = (newPos.y + collision.box.y + collision.box.height) / DEFAULT_BLOCK_SIZE;
+
+        for (int tileX = leftTile; tileX <= rightTile; tileX++)
         {
-            // TODO: maybe calculate path to get out exactly at edge?
-        } else
-        {
-            transform.pos.x = newPos.x;
+            for (int tileY = topTile; tileY <= bottomTile; tileY++)
+            {
+                auto tileCol = world.getTileAt(tileX, tileY)->collision(entity);
+                if (tileCol == nullptr) continue;
+                if (tileCol->collides(Vector2f{static_cast<float>(tileX * DEFAULT_BLOCK_SIZE), static_cast<float>(tileY * DEFAULT_BLOCK_SIZE)}, collision.box, Vector2f{newPos.x, transform.pos.y}))
+                {
+                    newPos.x = transform.pos.x;
+                    // TODO: maybe calculate path to get out exactly at edge?
+                }
+                if (tileCol->collides(Vector2f{static_cast<float>(tileX * DEFAULT_BLOCK_SIZE), static_cast<float>(tileY * DEFAULT_BLOCK_SIZE)}, collision.box, Vector2f{transform.pos.x, newPos.y}))
+                {
+                    newPos.y = transform.pos.y;
+                    // TODO: maybe calculate path to get out exactly at edge?
+                }
+            }
         }
-        if (wall.collides(Vector2f::Zero, collision.box, Vector2f{transform.pos.x, newPos.y}))
-        {
-            // TODO: maybe calculate path to get out exactly at edge?
-        } else
-        {
-            transform.pos.y = newPos.y;
-        }
+
+        transform.pos.x = newPos.x;
+        transform.pos.y = newPos.y;
     }
 }
 

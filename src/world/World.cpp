@@ -20,6 +20,14 @@ World::~World()
     chunks.clear();
 }
 
+Tile* World::getTileAt(int p_x, int p_y)
+{
+    auto x = std::div(p_x, CHUNK_SIZE);
+    auto y = std::div(p_y, CHUNK_SIZE);
+    Chunk* chunk = chunks[{x.quot, y.quot}];
+    return chunk->getTileAt(x.rem, y.rem);
+}
+
 void World::addBlockAt(int p_x, int p_y, Block* p_block)
 {
     auto x = std::div(p_x, CHUNK_SIZE);

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "math/Vector2.hpp"
+
 struct AABB
 {
     float x, y;

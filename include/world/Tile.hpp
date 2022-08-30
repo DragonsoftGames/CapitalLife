@@ -1,6 +1,8 @@
 #pragma once
 #include <deque>
 
+#include "ecs/Entity.hpp"
+#include "math/AABB.hpp"
 #include "Camera.hpp"
 
 class Chunk;
@@ -18,6 +20,8 @@ public:
     Block* getBlock();
     Block* removeBlock();
     void calcFirstRenderIndex();
+
+    AABB* collision(entt::entity& p_entity);
 
     void update();
     void render(Camera& p_camera, int p_x, int p_y);
