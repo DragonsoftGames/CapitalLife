@@ -59,15 +59,29 @@ void GameScene::handlePlayerInput()
 
 void GameScene::handleVelocity(float p_deltaTime)
 {
+    static auto wall = AABB{0, 0, 48, 48};
+
     auto renderView = registry.view<VelocityComponent, TransformComponent>();
     for (auto [entity, velocity, transform]: renderView.each())
     {
-        auto pos = transform.pos + velocity.delta * p_deltaTime * velocity.speed;
-        auto& size = transform.size;
-        if (!AABB{0, 0, 48, 48}.collides(AABB{pos.x, pos.y, size.x * 16, size.y * 16}))
+        if (velocity.delta == Vector2f::Zero) continue;
+        velocity.delta.normalize();
+        // from here on goes shitty implemented collision :)
+        auto newPos = transform.pos + velocity.delta * p_deltaTime * velocity.speed;
+        auto size = transform.size * 16;
+        if (wall.collides(AABB{newPos.x, transform.pos.y, size.x, size.y}))
         {
-            velocity.delta.normalize();
-            transform.pos += velocity.delta * p_deltaTime * velocity.speed;
+            // TODO: maybe calculate path to get out exactly at edge?
+        } else
+        {
+            transform.pos.x = newPos.x;
+        }
+        if (wall.collides(AABB{transform.pos.x, newPos.y, size.x, size.y}))
+        {
+            // TODO: maybe calculate path to get out exactly at edge?
+        } else
+        {
+            transform.pos.y = newPos.y;
         }
     }
 }

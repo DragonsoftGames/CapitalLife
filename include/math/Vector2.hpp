@@ -144,6 +144,11 @@ public:
 		return *this;
 	}
 
+	bool operator==(const Vector2<T>& other)
+	{
+		return x == other.x && y == other.y;
+	}
+
 	/////////////////////
 	// Default Vectors //
 	/////////////////////
