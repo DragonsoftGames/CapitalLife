@@ -13,7 +13,7 @@ GameScene::GameScene()
 {
     world.addBlockAt(0, 0, new Block{BlockTypes::grass, nullptr});
     world.addBlockAt(2, 3, new Block{BlockTypes::grass, nullptr});
-    player.addComponent<TransformComponent>(Vec2{4.0f, 3.0f}, Vec2{3.0f, 3.0f});
+    player.addComponent<TransformComponent>(Vec2{-4.0f, 3.0f}, Vec2{3.0f, 3.0f});
     player.addComponent<VelocityComponent>(13.0f);
     player.addComponent<SpriteComponent>(TextureManager::loadTexture("res/artwork/grass.png"));
     player.addComponent<CollisionComponent>(AABB{0.625f, 2.0f, 1.75f, 0.625f});

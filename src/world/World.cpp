@@ -22,34 +22,34 @@ World::~World()
 
 Tile* World::getTileAt(int p_x, int p_y)
 {
-    auto x = std::div(p_x, CHUNK_SIZE);
-    auto y = std::div(p_y, CHUNK_SIZE);
-    Chunk* chunk = chunks[{x.quot, y.quot}];
-    return chunk->getTileAt(x.rem, y.rem);
+    auto cX = static_cast<int>(std::floor(static_cast<float>(p_x) / CHUNK_SIZE));
+    auto cY = static_cast<int>(std::floor(static_cast<float>(p_y) / CHUNK_SIZE));
+    auto tX = p_x % CHUNK_SIZE;
+    if (p_x < 0) { tX = tX + CHUNK_SIZE; } 
+    auto tY = p_y % CHUNK_SIZE;
+    if (p_y < 0) { tY = tY + CHUNK_SIZE; } 
+
+    if (!chunks.contains(std::make_pair(cX, cY)))
+    {
+        loadChunk(cX, cY);
+    }
+    Chunk* chunk = chunks[std::make_pair(cX, cY)];
+    return chunk->getTileAt(tX, tY);
 }
 
 void World::addBlockAt(int p_x, int p_y, Block* p_block)
 {
-    auto x = std::div(p_x, CHUNK_SIZE);
-    auto y = std::div(p_y, CHUNK_SIZE);
-    Chunk* chunk = chunks[{x.quot, y.quot}];
-    chunk->addBlockAt(x.rem, y.rem, p_block);
+    getTileAt(p_x, p_y)->addBlock(p_block);
 }
 
 Block* World::getBlockAt(int p_x, int p_y)
 {
-    auto x = std::div(p_x, CHUNK_SIZE);
-    auto y = std::div(p_y, CHUNK_SIZE);
-    Chunk* chunk = chunks[{x.quot, y.quot}];
-    return chunk->getBlockAt(x.rem, y.rem);
+    return getTileAt(p_x, p_y)->getBlock();
 }
 
 Block* World::removeBlockAt(int p_x, int p_y)
 {
-    auto x = std::div(p_x, CHUNK_SIZE);
-    auto y = std::div(p_y, CHUNK_SIZE);
-    Chunk* chunk = chunks[{x.quot, y.quot}];
-    return chunk->removeBlockAt(x.rem, y.rem);
+    return getTileAt(p_x, p_y)->removeBlock();
 }
 
 void World::update()
@@ -67,5 +67,5 @@ void World::render(Camera& p_camera)
 
 void World::loadChunk(unsigned char p_x, unsigned char p_y)
 {
-    chunks[{p_x, p_y}] = new Chunk(*this, p_x, p_y);
+    chunks[std::make_pair(p_x, p_y)] = new Chunk(*this, p_x, p_y);
 }
