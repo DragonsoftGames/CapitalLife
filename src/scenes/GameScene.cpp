@@ -93,15 +93,34 @@ void GameScene::handleVelocity(float p_deltaTime)
             {
                 auto tileCol = world.getTileAt(tileX, tileY)->collision(entity);
                 if (tileCol == nullptr) continue;
-                if (tileCol->collides(Vec2{tileX * DEFAULT_BLOCK_SIZE, tileY * DEFAULT_BLOCK_SIZE}, collision.box, Vec2{newPos.x, transform.pos.y}))
+                auto scaledX = tileX * DEFAULT_BLOCK_SIZE;
+                auto scaledY = tileY * DEFAULT_BLOCK_SIZE;
+                
+                if (tileCol->collides(Vec2{scaledX, scaledY}, collision.box, Vec2{newPos.x, transform.pos.y}))
                 {
-                    newPos.x = transform.pos.x;
-                    // TODO: maybe calculate path to get out exactly at edge?
+                    auto leftSide = tileCol->x + scaledX;
+                    if (transform.pos.x < leftSide)
+                    {
+                        newPos.x = leftSide - collision.box.x - collision.box.width;
+                    }
+                    else
+                    {
+                        auto rightSide = leftSide + tileCol->width;
+                        newPos.x = rightSide - collision.box.x;
+                    }
                 }
-                if (tileCol->collides(Vec2{tileX * DEFAULT_BLOCK_SIZE, tileY * DEFAULT_BLOCK_SIZE}, collision.box, Vec2{transform.pos.x, newPos.y}))
+                if (tileCol->collides(Vec2{scaledX, scaledY}, collision.box, Vec2{transform.pos.x, newPos.y}))
                 {
-                    newPos.y = transform.pos.y;
-                    // TODO: maybe calculate path to get out exactly at edge?
+                    auto topSide = tileCol->y + scaledY;
+                    if (transform.pos.y < topSide)
+                    {
+                        newPos.y = topSide - collision.box.y - collision.box.height;
+                    }
+                    else
+                    {
+                        auto bottomSide = topSide + tileCol->height;
+                        newPos.y = bottomSide - collision.box.y;
+                    }
                 }
             }
         }
