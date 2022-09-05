@@ -4,7 +4,7 @@
 
 #include "world/Tile.hpp"
 World::World()
-    :chunks(std::map<std::pair<unsigned char, unsigned char>, Chunk*>())
+    :chunks(std::map<std::pair<int, int>, Chunk*>())
 {
     loadChunk(0, 0);
     loadChunk(1, 0);
@@ -64,7 +64,7 @@ void World::render(Camera& p_camera)
     }
 }
 
-void World::loadChunk(unsigned char p_x, unsigned char p_y)
+void World::loadChunk(int p_x, int p_y)
 {
     chunks[std::make_pair(p_x, p_y)] = new Chunk(*this, p_x, p_y);
 }

@@ -18,6 +18,6 @@ public:
     void update();
     void render(Camera& p_camera);
 private:
-    void loadChunk(unsigned char p_x, unsigned char p_y);
-    std::map<std::pair<unsigned char, unsigned char>, Chunk*> chunks;
+    void loadChunk(int p_x, int p_y);
+    std::map<std::pair<int, int>, Chunk*> chunks;
 };

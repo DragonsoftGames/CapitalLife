@@ -9,7 +9,7 @@ class World;
 class Chunk
 {
 public:
-    Chunk(World& p_world, unsigned char p_x, unsigned char p_y);
+    Chunk(World& p_world, int p_x, int p_y);
     ~Chunk();
 
     Tile* getTileAt(int p_x, int p_y);
@@ -21,7 +21,7 @@ public:
     void render(Camera& p_camera);
 private:
     World& world;
-    unsigned char x;
-    unsigned char y;
+    int x;
+    int y;
     Tile* tiles[CHUNK_SIZE][CHUNK_SIZE];
 };
