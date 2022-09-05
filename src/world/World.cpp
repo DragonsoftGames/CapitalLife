@@ -3,6 +3,9 @@
 #include "world/block/BlockTypes.hpp"
 
 #include "world/Tile.hpp"
+
+#include "math/Convertions.hpp"
+
 World::World()
     :chunks(std::map<std::pair<int, int>, Chunk*>())
 {
@@ -21,8 +24,8 @@ World::~World()
 
 Tile* World::getTileAt(int p_x, int p_y)
 {
-    auto cX = static_cast<int>(std::floor(static_cast<float>(p_x < 0 ? p_x - 1 : p_x) / CHUNK_SIZE));
-    auto cY = static_cast<int>(std::floor(static_cast<float>(p_y < 0 ? p_y - 1 : p_y) / CHUNK_SIZE));
+    auto cX = i32(std::floor(f32(p_x < 0 ? p_x - 1 : p_x) / CHUNK_SIZE));
+    auto cY = i32(std::floor(f32(p_y < 0 ? p_y - 1 : p_y) / CHUNK_SIZE));
     auto tX = p_x % CHUNK_SIZE;
     if (tX < 0) { tX = tX + CHUNK_SIZE; } 
     auto tY = p_y % CHUNK_SIZE;
@@ -33,7 +36,7 @@ Tile* World::getTileAt(int p_x, int p_y)
         loadChunk(cX, cY);
     }
     Chunk* chunk = chunks[std::make_pair(cX, cY)];
-    return chunk->getTileAt(tX, tY);
+    return chunk->getTileAt(i32(tX), i32(tY));
 }
 
 void World::addBlockAt(int p_x, int p_y, Block* p_block)
