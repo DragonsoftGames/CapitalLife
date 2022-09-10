@@ -150,6 +150,20 @@ void GameScene::loadNearbyWorld()
     int topChunk = std::floor((pl.pos.y) / (DEFAULT_BLOCK_SIZE * CHUNK_SIZE));
     int bottomChunk = std::floor((pl.pos.y + pl.size.y) / (DEFAULT_BLOCK_SIZE * CHUNK_SIZE));
 
+    for (ChunkMap::iterator it = world.chunks.begin(); it != world.chunks.end();)
+    {
+        if (it->first.first < leftChunk - 2 || it->first.first > rightChunk + 2 || it->first.second < topChunk - 2 || it->first.second > bottomChunk + 2) 
+        {
+            std::cout << "should remove " << it->first.first << " , " << it->first.second << std::endl;
+            // TODO: call destructor
+            world.chunks.erase(it++);
+        } else
+        {
+            it++;
+        }
+    }
+
+
     for(auto const& [key, chunk] : world.chunks)
     {
         if (key.first < leftChunk - 2 || key.first > rightChunk + 2 || key.second < topChunk - 2 || key.second > bottomChunk + 2) 
