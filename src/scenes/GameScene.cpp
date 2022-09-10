@@ -5,14 +5,13 @@
 #include "TextureManager.hpp"
 #include "math/AABB.hpp"
 #include "Input.hpp"
+#include "math/Convertions.hpp"
 
-#define pos(entity) entity.getComponent<TransformComponent>().pos
+#define trans(entity) entity.getComponent<TransformComponent>()
 
 GameScene::GameScene()
     :world(World()), player(createEntity()), camera(Camera(16))
 {
-    world.addBlockAt(0, 0, new Block{BlockTypes::grass, nullptr});
-    world.addBlockAt(2, 3, new Block{BlockTypes::grass, nullptr});
     player.addComponent<TransformComponent>(Vec2{-4.0f, 3.0f}, Vec2{3.0f, 3.0f});
     player.addComponent<VelocityComponent>(13.0f);
     player.addComponent<SpriteComponent>(TextureManager::loadTexture("res/artwork/grass.png"));
@@ -26,6 +25,8 @@ GameScene::~GameScene()
 
 void GameScene::update(float p_deltaTime)
 {
+    loadNearbyWorld();
+
     handlePlayerInput();
     handleVelocity(p_deltaTime);
 
@@ -139,6 +140,31 @@ void GameScene::moveCamera(float p_deltaTime)
     SDL_GetRendererOutputSize(Window::renderer, &w, &h);
     Vec2 offset = Vec2{(transform.pos.x * camera.scale) - w / 2 + (transform.size.x * camera.scale) / 2, (transform.pos.y * camera.scale) - h / 2 + (transform.size.y * camera.scale) / 2};
     camera.offset.lerp(offset, smoothSpeed * p_deltaTime);
+}
+
+void GameScene::loadNearbyWorld()
+{
+    auto& pl = trans(player);
+    int leftChunk = std::floor((pl.pos.x) / (DEFAULT_BLOCK_SIZE * CHUNK_SIZE));
+    int rightChunk = std::floor((pl.pos.x + pl.size.x) / (DEFAULT_BLOCK_SIZE * CHUNK_SIZE));
+    int topChunk = std::floor((pl.pos.y) / (DEFAULT_BLOCK_SIZE * CHUNK_SIZE));
+    int bottomChunk = std::floor((pl.pos.y + pl.size.y) / (DEFAULT_BLOCK_SIZE * CHUNK_SIZE));
+
+    for(auto const& [key, chunk] : world.chunks)
+    {
+        if (key.first < leftChunk - 2 || key.first > rightChunk + 2 || key.second < topChunk - 2 || key.second > bottomChunk + 2) 
+        {
+            std::cout << "should remove " << key.first << " , " << key.second << std::endl;
+        }
+    }
+
+    for (int chunkX = leftChunk - 2; chunkX <= rightChunk + 2; chunkX++)
+    {
+        for (int chunkY = topChunk - 2; chunkY <= bottomChunk + 2; chunkY++)
+        {
+            world.tryLoadChunk(chunkX, chunkY);
+        }
+    }
 }
 
 void GameScene::renderSprites()

@@ -7,10 +7,8 @@
 #include "math/Convertions.hpp"
 
 World::World()
-    :chunks(std::map<std::pair<int, int>, Chunk*>())
+    :chunks(ChunkMap())
 {
-    loadChunk(0, 0);
-    loadChunk(1, 0);
 }
 
 World::~World()
@@ -33,7 +31,7 @@ Tile* World::getTileAt(int p_x, int p_y)
 
     if (!chunks.contains(std::make_pair(cX, cY)))
     {
-        loadChunk(cX, cY);
+        //loadChunk(cX, cY);
     }
     Chunk* chunk = chunks[std::make_pair(cX, cY)];
     return chunk->getTileAt(i32(tX), i32(tY));
@@ -65,6 +63,12 @@ void World::render(Camera& p_camera)
     {
         chunk->render(p_camera);
     }
+}
+
+void World::tryLoadChunk(int p_x, int p_y)
+{
+    if (chunks.contains(std::make_pair(p_x, p_y))) return;
+    loadChunk(p_x, p_y);
 }
 
 void World::loadChunk(int p_x, int p_y)

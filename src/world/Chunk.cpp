@@ -12,6 +12,8 @@ Chunk::Chunk(World& p_world, int p_x, int p_y)
         for (unsigned char tileY = 0; tileY < CHUNK_SIZE; tileY++)
         {
             tiles[tileX][tileY] = new Tile(*this, tileX, tileY);
+            if ((tileX == 0 || tileX == CHUNK_SIZE - 1) && (tileY == 0 || tileY == CHUNK_SIZE - 1))
+                tiles[tileX][tileY]->addBlock(new Block{BlockTypes::grass, nullptr});
         }
     }
 }
