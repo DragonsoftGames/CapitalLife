@@ -2,6 +2,7 @@
 
 #include "math/Vec2.hpp"
 #include "Window.hpp"
+#include "math/Convertions.hpp"
 
 class Camera
 {
@@ -12,14 +13,16 @@ public:
     void render(SDL_Texture* p_texture, SDL_Rect src, Vec2 pos, Vec2 size)
     {
         SDL_Rect dst{
-            static_cast<int>((pos.x * scale) - std::floor(offset.x)), static_cast<int>((pos.y * scale) - std::floor(offset.y)), 
-            static_cast<int>(scale * size.x), static_cast<int>(scale * size.y)};
+            i32(std::floor(pos.x * scale - offset.x)), i32(std::floor(pos.y * scale - offset.y)), 
+            i32(scale * size.x), i32(scale * size.y)};
         SDL_RenderCopy(Window::renderer, p_texture, &src, &dst);
     }
 
     void drawRect(float x, float y, float width, float height)
     {
-        SDL_Rect rect = SDL_Rect{static_cast<int>((x * scale) - std::floor(offset.x)), static_cast<int>((y * scale) - std::floor(offset.y)), static_cast<int>(width * scale), static_cast<int>(height * scale)};
+        SDL_Rect rect = SDL_Rect{
+            i32(std::floor(x * scale - offset.x)), i32(std::floor(y * scale - offset.y)), 
+            i32(width * scale), i32(height * scale)};
         SDL_SetRenderDrawColor(Window::renderer, 255, 0, 0, 255);
         SDL_RenderDrawRect(Window::renderer, &rect);
     }
