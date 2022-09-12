@@ -1,6 +1,6 @@
 #pragma once
 
-#define DEFAULT_BLOCK_SIZE 48
+#define DEFAULT_BLOCK_SIZE 3
 
 #include "Camera.hpp"
 

@@ -47,6 +47,16 @@ Block* Tile::removeBlock()
     return result;
 }
 
+AABB* Tile::collision(entt::entity& p_entity)
+{
+    if (blockStack.size() == 0)
+    {
+        return nullptr;
+    }
+    return new AABB{0, 0, DEFAULT_BLOCK_SIZE, DEFAULT_BLOCK_SIZE};
+    //return nullptr;
+}
+
 void Tile::update()
 {
     if (blockStack.size() <= 0) return;

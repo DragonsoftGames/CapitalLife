@@ -2,27 +2,31 @@ cmake_minimum_required(VERSION 3.0.0)
 project(capitallife VERSION 0.1.0)
 
 add_executable(capitallife 
-    src/main.cpp
-    src/Window.cpp
-    src/TextureManager.cpp
-    src/Input.cpp
-    src/Scene.cpp
+src/main.cpp
+src/Window.cpp
+src/TextureManager.cpp
+src/Input.cpp
+src/Scene.cpp
 
-    src/scenes/GameScene.cpp
+src/math/Vec2.cpp
 
-    src/ecs/Entity.cpp
+src/scenes/GameScene.cpp
 
-    src/world/Block.cpp
-    src/world/Chunk.cpp
-    src/world/Tile.cpp
-    src/world/World.cpp
-    )
+src/ecs/Entity.cpp
+
+src/world/Block.cpp
+src/world/Chunk.cpp
+src/world/Tile.cpp
+src/world/World.cpp
+)
 target_include_directories(
     capitallife
     PRIVATE include
     SYSTEM third_party
     )
 
+set_property(TARGET capitallife PROPERTY CXX_STANDARD 23)
+    
 #target_compile_options(capitallife PUBLIC -Wall -Wextra -Werror -pedantic -Wconversion -pthread -fsanitize=address,undefined)
 #target_link_options(capitallife  PUBLIC -fsanitize=address,undefined)
 

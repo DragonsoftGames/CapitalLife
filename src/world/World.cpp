@@ -4,11 +4,11 @@
 
 #include "world/Tile.hpp"
 
+#include "math/Convertions.hpp"
+
 World::World()
-    :chunks(std::map<std::pair<unsigned char, unsigned char>, Chunk*>())
+    :chunks(ChunkMap())
 {
-    loadChunk(0, 0);
-    loadChunk(1, 0);
 }
 
 World::~World()
@@ -20,28 +20,36 @@ World::~World()
     chunks.clear();
 }
 
+Tile* World::getTileAt(int p_x, int p_y)
+{
+    auto cX = i32(std::floor(f32(p_x < 0 ? p_x - 1 : p_x) / CHUNK_SIZE));
+    auto cY = i32(std::floor(f32(p_y < 0 ? p_y - 1 : p_y) / CHUNK_SIZE));
+    auto tX = p_x % CHUNK_SIZE;
+    if (tX < 0) { tX = tX + CHUNK_SIZE; } 
+    auto tY = p_y % CHUNK_SIZE;
+    if (tY < 0) { tY = tY + CHUNK_SIZE; } 
+
+    if (!chunks.contains(std::make_pair(cX, cY)))
+    {
+        //loadChunk(cX, cY);
+    }
+    Chunk* chunk = chunks[std::make_pair(cX, cY)];
+    return chunk->getTileAt(i32(tX), i32(tY));
+}
+
 void World::addBlockAt(int p_x, int p_y, Block* p_block)
 {
-    auto x = std::div(p_x, CHUNK_SIZE);
-    auto y = std::div(p_y, CHUNK_SIZE);
-    Chunk* chunk = chunks[{x.quot, y.quot}];
-    chunk->addBlockAt(x.rem, y.rem, p_block);
+    getTileAt(p_x, p_y)->addBlock(p_block);
 }
 
 Block* World::getBlockAt(int p_x, int p_y)
 {
-    auto x = std::div(p_x, CHUNK_SIZE);
-    auto y = std::div(p_y, CHUNK_SIZE);
-    Chunk* chunk = chunks[{x.quot, y.quot}];
-    return chunk->getBlockAt(x.rem, y.rem);
+    return getTileAt(p_x, p_y)->getBlock();
 }
 
 Block* World::removeBlockAt(int p_x, int p_y)
 {
-    auto x = std::div(p_x, CHUNK_SIZE);
-    auto y = std::div(p_y, CHUNK_SIZE);
-    Chunk* chunk = chunks[{x.quot, y.quot}];
-    return chunk->removeBlockAt(x.rem, y.rem);
+    return getTileAt(p_x, p_y)->removeBlock();
 }
 
 void World::update()
@@ -57,7 +65,13 @@ void World::render(Camera& p_camera)
     }
 }
 
-void World::loadChunk(unsigned char p_x, unsigned char p_y)
+void World::tryLoadChunk(int p_x, int p_y)
 {
-    chunks[{p_x, p_y}] = new Chunk(*this, p_x, p_y);
+    if (chunks.contains(std::make_pair(p_x, p_y))) return;
+    loadChunk(p_x, p_y);
+}
+
+void World::loadChunk(int p_x, int p_y)
+{
+    chunks[std::make_pair(p_x, p_y)] = new Chunk(*this, p_x, p_y);
 }

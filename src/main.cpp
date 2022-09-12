@@ -47,8 +47,6 @@ int main()
             }
             lastTime = currentTime;
 
-            std::cout << deltaTime << std::endl;
-
             while (SDL_PollEvent(&event))
             {
                 if (event.type == SDL_QUIT)

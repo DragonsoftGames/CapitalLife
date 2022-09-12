@@ -9,18 +9,19 @@ class World;
 class Chunk
 {
 public:
-    Chunk(World& p_world, unsigned char p_x, unsigned char p_y);
+    Chunk(World& p_world, int p_x, int p_y);
     ~Chunk();
 
-    void addBlockAt(int p_x, int p_y, Block* block);
-    Block* getBlockAt(int p_x, int p_y);
-    Block* removeBlockAt(int p_x, int p_y);
+    Tile* getTileAt(unsigned char p_x, unsigned char p_y);
+    void addBlockAt(unsigned char p_x, unsigned char p_y, Block* block);
+    Block* getBlockAt(unsigned char p_x, unsigned char p_y);
+    Block* removeBlockAt(unsigned char p_x, unsigned char p_y);
 
     void update();
     void render(Camera& p_camera);
 private:
     World& world;
-    unsigned char x;
-    unsigned char y;
+    int x;
+    int y;
     Tile* tiles[CHUNK_SIZE][CHUNK_SIZE];
 };

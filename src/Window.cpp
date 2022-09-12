@@ -20,6 +20,7 @@ Window::Window(const char* p_title, int p_width, int p_height)
 
 void Window::clear()
 {
+    SDL_SetRenderDrawColor(renderer, 25, 25, 25, 255);
     SDL_RenderClear(renderer);
 }
 

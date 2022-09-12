@@ -18,6 +18,7 @@ private:
     void handlePlayerInput();
     void handleVelocity(float p_deltaTime);
     void moveCamera(float p_deltaTime);
+    void loadNearbyWorld();
 
     void renderSprites();
 
