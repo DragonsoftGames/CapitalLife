@@ -83,10 +83,10 @@ void GameScene::handleVelocity(float p_deltaTime)
         // from here on goes shitty implemented collision :)
         auto newPos = transform.pos + velocity.delta * p_deltaTime * velocity.speed;
 
-        int leftTile = (newPos.x + collision.box.x) / DEFAULT_BLOCK_SIZE;
-        int rightTile = (newPos.x + collision.box.x + collision.box.width) / DEFAULT_BLOCK_SIZE;
-        int topTile = (newPos.y + collision.box.y) / DEFAULT_BLOCK_SIZE;
-        int bottomTile = (newPos.y + collision.box.y + collision.box.height) / DEFAULT_BLOCK_SIZE;
+        int leftTile = std::floor((newPos.x + collision.box.x) / DEFAULT_BLOCK_SIZE);
+        int rightTile = std::floor((newPos.x + collision.box.x + collision.box.width) / DEFAULT_BLOCK_SIZE);
+        int topTile = std::floor((newPos.y + collision.box.y) / DEFAULT_BLOCK_SIZE);
+        int bottomTile = std::floor((newPos.y + collision.box.y + collision.box.height) / DEFAULT_BLOCK_SIZE);
 
         for (int tileX = leftTile; tileX <= rightTile; tileX++)
         {

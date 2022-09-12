@@ -20,6 +20,7 @@ public:
     void drawRect(float x, float y, float width, float height)
     {
         SDL_Rect rect = SDL_Rect{static_cast<int>((x * scale) - std::floor(offset.x)), static_cast<int>((y * scale) - std::floor(offset.y)), static_cast<int>(width * scale), static_cast<int>(height * scale)};
+        SDL_SetRenderDrawColor(Window::renderer, 255, 0, 0, 255);
         SDL_RenderDrawRect(Window::renderer, &rect);
     }
 
