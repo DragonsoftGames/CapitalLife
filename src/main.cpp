@@ -4,6 +4,7 @@
 #include "Window.hpp"
 #include "scenes/GameScene.hpp"
 #include "world/block/BlockTypes.hpp"
+#include "inventory/item/ItemTypes.hpp"
 #include "Input.hpp"
 
 int main()
@@ -22,6 +23,7 @@ int main()
     Window window("CapitalLife", 1280, 720);
 
     BlockTypes::setup();
+    ItemTypes::setup();
 
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;
@@ -66,6 +68,7 @@ int main()
         delete scene;
     }
 
+    ItemTypes::cleanup();
     BlockTypes::cleanup();
 
     window.cleanup();

@@ -8,6 +8,7 @@
 #include "math/Convertions.hpp"
 #include "inventory/PlayerInventory.hpp"
 #include "inventory/Inventory.hpp"
+#include "inventory/item/ItemTypes.hpp"
 
 #define trans(entity) entity.getComponent<TransformComponent>()
 
@@ -20,6 +21,10 @@ GameScene::GameScene()
     player.addComponent<CollisionComponent>(AABB{0.625f, 2.0f, 1.75f, 0.625f});
     player.addComponent<PlayerInventory>();
     player.addComponent<Inventory>(12);
+
+    player.getComponent<Inventory>().addItem(Item(ItemTypes::stick, nullptr));
+    auto& x = player.getComponent<Inventory>();
+    auto i = 0;
 }
 
 GameScene::~GameScene()

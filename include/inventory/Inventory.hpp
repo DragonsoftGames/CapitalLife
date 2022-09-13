@@ -4,10 +4,12 @@
 
 #include "inventory/Item.hpp"
 
-class Inventory
+struct Inventory
 {
 public:
     Inventory(unsigned short p_maxSize);
+    
+    void addItem(Item p_item);
 
 private:
     std::vector<Item> items;
