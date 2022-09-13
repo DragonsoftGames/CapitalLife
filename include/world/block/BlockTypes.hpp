@@ -10,7 +10,7 @@ namespace BlockTypes
 
     inline void setup()
     {
-        grass = new BlockType{"cali:grass", false, new StaticBlockRenderer(TextureManager::loadTexture("res/artwork/grass.png"))};
+        grass = new BlockType{"cali:grass", false, new StaticBlockRenderer(TextureManager::loadTexture("res/artwork/grass_new.png"))};
     }
 
     inline void cleanup()
