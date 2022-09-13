@@ -6,6 +6,8 @@
 #include "math/AABB.hpp"
 #include "Input.hpp"
 #include "math/Convertions.hpp"
+#include "inventory/PlayerInventory.hpp"
+#include "inventory/Inventory.hpp"
 
 #define trans(entity) entity.getComponent<TransformComponent>()
 
@@ -16,6 +18,8 @@ GameScene::GameScene()
     player.addComponent<VelocityComponent>(13.0f);
     player.addComponent<SpriteComponent>(TextureManager::loadTexture("res/artwork/grass.png"));
     player.addComponent<CollisionComponent>(AABB{0.625f, 2.0f, 1.75f, 0.625f});
+    player.addComponent<PlayerInventory>();
+    player.addComponent<Inventory>(12);
 }
 
 GameScene::~GameScene()

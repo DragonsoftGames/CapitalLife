@@ -18,6 +18,9 @@ src/world/Block.cpp
 src/world/Chunk.cpp
 src/world/Tile.cpp
 src/world/World.cpp
+
+src/inventory/Item.cpp
+src/inventory/Inventory.cpp
 )
 target_include_directories(
     capitallife
