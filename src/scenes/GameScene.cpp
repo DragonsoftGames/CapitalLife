@@ -22,7 +22,10 @@ GameScene::GameScene()
     player.addComponent<PlayerInventory>();
     player.addComponent<Inventory>(12);
 
-    player.getComponent<Inventory>().addItem(Item(ItemTypes::stick, nullptr));
+    {
+        player.getComponent<Inventory>().addItem(Item(ItemTypes::stick, nullptr));
+        player.getComponent<Inventory>().addItem(Item(ItemTypes::stick, nullptr));
+    }
     auto& x = player.getComponent<Inventory>();
     auto i = 0;
 }
