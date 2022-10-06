@@ -13,7 +13,7 @@
 #define trans(entity) entity.getComponent<TransformComponent>()
 
 GameScene::GameScene()
-    :world(World()), player(createEntity()), camera(Camera(16))
+    : world(World()), player(createEntity()), camera(Camera(16))
 {
     player.addComponent<TransformComponent>(Vec2{-4.0f, 3.0f}, Vec2{3.0f, 3.0f});
     player.addComponent<VelocityComponent>(13.0f);
@@ -26,7 +26,7 @@ GameScene::GameScene()
         player.getComponent<Inventory>().addItem(Item(ItemTypes::stick, nullptr));
         player.getComponent<Inventory>().addItem(Item(ItemTypes::stick, nullptr));
     }
-    auto& x = player.getComponent<Inventory>();
+    auto &x = player.getComponent<Inventory>();
     auto i = 0;
 }
 
@@ -52,7 +52,7 @@ void GameScene::render()
 
     // draw collision box
     auto renderView = registry.view<TransformComponent, CollisionComponent>();
-    for (auto [entity, transform, collision]: renderView.each())
+    for (auto [entity, transform, collision] : renderView.each())
     {
         camera.drawRect(collision.box.x + transform.pos.x, collision.box.y + transform.pos.y, collision.box.width, collision.box.height);
     }
@@ -61,19 +61,19 @@ void GameScene::render()
 void GameScene::handlePlayerInput()
 {
     Vec2 velocity = Vec2::Zero;
-    if(Input::isKeyPressed(SDL_SCANCODE_W))
+    if (Input::isKeyPressed(SDL_SCANCODE_W))
     {
         velocity.y -= 1.0f;
     }
-    if(Input::isKeyPressed(SDL_SCANCODE_A))
+    if (Input::isKeyPressed(SDL_SCANCODE_A))
     {
         velocity.x -= 1.0f;
     }
-    if(Input::isKeyPressed(SDL_SCANCODE_S))
+    if (Input::isKeyPressed(SDL_SCANCODE_S))
     {
         velocity.y += 1.0f;
     }
-    if(Input::isKeyPressed(SDL_SCANCODE_D))
+    if (Input::isKeyPressed(SDL_SCANCODE_D))
     {
         velocity.x += 1.0f;
     }
@@ -87,9 +87,10 @@ void GameScene::handleVelocity(float p_deltaTime)
     static auto wall = AABB{0, 0, 3, 3};
 
     auto renderView = registry.view<VelocityComponent, TransformComponent, CollisionComponent>();
-    for (auto [entity, velocity, transform, collision]: renderView.each())
+    for (auto [entity, velocity, transform, collision] : renderView.each())
     {
-        if (velocity.delta == Vec2::Zero) continue;
+        if (velocity.delta == Vec2::Zero)
+            continue;
         velocity.delta.normalize();
 
         // from here on goes shitty implemented collision :)
@@ -105,10 +106,11 @@ void GameScene::handleVelocity(float p_deltaTime)
             for (int tileY = topTile; tileY <= bottomTile; tileY++)
             {
                 auto tileCol = world.getTileAt(tileX, tileY)->collision(entity);
-                if (tileCol == nullptr) continue;
+                if (tileCol == nullptr)
+                    continue;
                 auto scaledX = tileX * DEFAULT_BLOCK_SIZE;
                 auto scaledY = tileY * DEFAULT_BLOCK_SIZE;
-                
+
                 if (tileCol->collides(Vec2{scaledX, scaledY}, collision.box, Vec2{newPos.x, transform.pos.y}))
                 {
                     auto leftSide = tileCol->x + scaledX;
@@ -147,16 +149,16 @@ void GameScene::moveCamera(float p_deltaTime)
 {
     static float smoothSpeed = 4.0f;
 
-    auto& transform = player.getComponent<TransformComponent>();
+    auto &transform = player.getComponent<TransformComponent>();
     int w, h;
     SDL_GetRendererOutputSize(Window::renderer, &w, &h);
     Vec2 offset = Vec2{(transform.pos.x * camera.scale) - w / 2 + (transform.size.x * camera.scale) / 2, (transform.pos.y * camera.scale) - h / 2 + (transform.size.y * camera.scale) / 2};
-    camera.offset.lerp(offset, smoothSpeed * p_deltaTime);
+    camera.offset.fixLerp(offset, smoothSpeed * p_deltaTime, 0.01);
 }
 
 void GameScene::loadNearbyWorld()
 {
-    auto& pl = trans(player);
+    auto &pl = trans(player);
     int leftChunk = std::floor((pl.pos.x) / (DEFAULT_BLOCK_SIZE * CHUNK_SIZE));
     int rightChunk = std::floor((pl.pos.x + pl.size.x) / (DEFAULT_BLOCK_SIZE * CHUNK_SIZE));
     int topChunk = std::floor((pl.pos.y) / (DEFAULT_BLOCK_SIZE * CHUNK_SIZE));
@@ -164,21 +166,21 @@ void GameScene::loadNearbyWorld()
 
     for (ChunkMap::iterator it = world.chunks.begin(); it != world.chunks.end();)
     {
-        if (it->first.first < leftChunk - 2 || it->first.first > rightChunk + 2 || it->first.second < topChunk - 2 || it->first.second > bottomChunk + 2) 
+        if (it->first.first < leftChunk - 2 || it->first.first > rightChunk + 2 || it->first.second < topChunk - 2 || it->first.second > bottomChunk + 2)
         {
             std::cout << "should remove " << it->first.first << " , " << it->first.second << std::endl;
             // TODO: call destructor
             world.chunks.erase(it++);
-        } else
+        }
+        else
         {
             it++;
         }
     }
 
-
-    for(auto const& [key, chunk] : world.chunks)
+    for (auto const &[key, chunk] : world.chunks)
     {
-        if (key.first < leftChunk - 2 || key.first > rightChunk + 2 || key.second < topChunk - 2 || key.second > bottomChunk + 2) 
+        if (key.first < leftChunk - 2 || key.first > rightChunk + 2 || key.second < topChunk - 2 || key.second > bottomChunk + 2)
         {
             std::cout << "should remove " << key.first << " , " << key.second << std::endl;
         }
@@ -196,7 +198,7 @@ void GameScene::loadNearbyWorld()
 void GameScene::renderSprites()
 {
     auto renderView = registry.view<SpriteComponent, TransformComponent>();
-    for (auto [entity, sprite, transform]: renderView.each())
+    for (auto [entity, sprite, transform] : renderView.each())
     {
         auto src = SDL_Rect{0, 0, 32, 32};
         camera.render(sprite.texture, src, Vec2{transform.pos.x, transform.pos.y}, Vec2{transform.size.x, transform.size.y});
