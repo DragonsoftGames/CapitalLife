@@ -31,9 +31,9 @@ int main()
     Uint32 currentTime = 0;
     Uint32 lastTime = 0;
     float deltaTime = 0;
-    
+
     {
-        Scene* scene = new GameScene();
+        Scene *scene = new GameScene();
 
         bool gameRunning = true;
 
@@ -43,7 +43,7 @@ int main()
             currentTime = SDL_GetTicks();
             int frameTime = currentTime - lastTime;
             deltaTime = ((float)frameTime) / 1000.0f;
-            if(frameDelay > frameTime)
+            if (frameDelay > frameTime)
             {
                 SDL_Delay(frameDelay - frameTime);
             }

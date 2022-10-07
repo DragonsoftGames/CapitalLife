@@ -5,6 +5,7 @@ include_directories(third_party/entt/src)
 add_subdirectory(third_party/entt)
 
 include_directories(third_party/OpenSimplexNoise/OpenSimplexNoise)
+add_library(OpenSimplexNoise third_party/OpenSimplexNoise/OpenSimplexNoise/OpenSimplexNoise.cpp)
 
 add_executable(capitallife 
 src/main.cpp
@@ -23,6 +24,7 @@ src/world/Block.cpp
 src/world/Chunk.cpp
 src/world/Tile.cpp
 src/world/World.cpp
+src/world/WorldGenerator.cpp
 
 src/inventory/Item.cpp
 src/inventory/Inventory.cpp
@@ -30,7 +32,6 @@ src/inventory/Inventory.cpp
 target_include_directories(
     capitallife
     PRIVATE include
-    SYSTEM third_party
     )
 
 set_property(TARGET capitallife PROPERTY CXX_STANDARD 23)
@@ -38,7 +39,7 @@ set_property(TARGET capitallife PROPERTY CXX_STANDARD 23)
 #target_compile_options(capitallife PUBLIC -Wall -Wextra -Werror -pedantic -Wconversion -pthread -fsanitize=address,undefined)
 #target_link_options(capitallife  PUBLIC -fsanitize=address,undefined)
 
-target_link_libraries(capitallife SDL2main SDL2 SDL2_image)
+target_link_libraries(capitallife SDL2main SDL2 SDL2_image OpenSimplexNoise)
 
 add_custom_command(TARGET capitallife PRE_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory

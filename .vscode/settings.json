@@ -1,3 +1,9 @@
 {
-    "cmake.preferredGenerators": ["Unix Makefiles"]
+    "cmake.preferredGenerators": [
+        "Unix Makefiles"
+    ],
+    "files.associations": {
+        "cstdint": "cpp",
+        "new": "cpp"
+    }
 }

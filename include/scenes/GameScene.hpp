@@ -3,6 +3,7 @@
 #include "Scene.hpp"
 
 #include "world/World.hpp"
+#include "world/WorldGenerator.hpp"
 #include "ecs/Entity.hpp"
 #include "Camera.hpp"
 
@@ -14,6 +15,7 @@ public:
 
     void update(float p_deltaTime) override;
     void render() override;
+
 private:
     void handlePlayerInput();
     void handleVelocity(float p_deltaTime);
@@ -23,6 +25,7 @@ private:
     void renderSprites();
 
     World world;
+    WorldGenerator worldGen;
     Entity player;
     Camera camera;
 };

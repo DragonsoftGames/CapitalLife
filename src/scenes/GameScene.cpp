@@ -13,7 +13,7 @@
 #define trans(entity) entity.getComponent<TransformComponent>()
 
 GameScene::GameScene()
-    : world(World()), player(createEntity()), camera(Camera(16))
+    : world(World()), worldGen(WorldGenerator(13)), player(createEntity()), camera(Camera(16))
 {
     player.addComponent<TransformComponent>(Vec2{-4.0f, 3.0f}, Vec2{3.0f, 3.0f});
     player.addComponent<VelocityComponent>(13.0f);
@@ -190,7 +190,7 @@ void GameScene::loadNearbyWorld()
     {
         for (int chunkY = topChunk - 2; chunkY <= bottomChunk + 2; chunkY++)
         {
-            world.tryLoadChunk(chunkX, chunkY);
+            world.tryLoadChunk(chunkX, chunkY, worldGen);
         }
     }
 }
