@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(capitallife VERSION 0.1.0)
 
+include_directories(third_party/entt/src third_party/OpenSimplexNoise)
+add_subdirectory(third_party/entt)
+
 add_executable(capitallife 
 src/main.cpp
 src/Window.cpp
