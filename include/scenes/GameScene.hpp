@@ -5,6 +5,7 @@
 #include "world/World.hpp"
 #include "world/WorldGenerator.hpp"
 #include "ecs/Entity.hpp"
+#include "Debug.hpp"
 #include "Camera.hpp"
 #include <vector>
 
@@ -29,5 +30,6 @@ private:
     WorldGenerator worldGen;
     Entity player;
     Camera camera;
-    std::vector<std::tuple<int, int, bool>> abcfuck;
+
+    CALI_DEBUG_TILECOL_INIT
 };
