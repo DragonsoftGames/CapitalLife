@@ -27,6 +27,22 @@ public:
         SDL_RenderDrawRect(Window::renderer, &rect);
     }
 
+    void drawRect(float x, float y, float width, float height, bool filled)
+    {
+        SDL_Rect rect = SDL_Rect{
+            i32(std::floor(x * scale - offset.x)), i32(std::floor(y * scale - offset.y)),
+            i32(width * scale), i32(height * scale)};
+        SDL_SetRenderDrawColor(Window::renderer, 255, 0, 0, 255);
+        if (!filled)
+        {
+            SDL_RenderFillRect(Window::renderer, &rect);
+        }
+        else
+        {
+            SDL_RenderDrawRect(Window::renderer, &rect);
+        }
+    }
+
     Vec2 offset;
     float scale;
 };

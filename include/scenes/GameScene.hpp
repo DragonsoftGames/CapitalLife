@@ -6,6 +6,7 @@
 #include "world/WorldGenerator.hpp"
 #include "ecs/Entity.hpp"
 #include "Camera.hpp"
+#include <vector>
 
 class GameScene : public Scene
 {
@@ -28,4 +29,5 @@ private:
     WorldGenerator worldGen;
     Entity player;
     Camera camera;
+    std::vector<std::tuple<int, int, bool>> abcfuck;
 };

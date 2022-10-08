@@ -13,7 +13,7 @@
 #define trans(entity) entity.getComponent<TransformComponent>()
 
 GameScene::GameScene()
-    : world(World()), worldGen(WorldGenerator(13)), player(createEntity()), camera(Camera(16))
+    : world(World()), worldGen(WorldGenerator(13)), player(createEntity()), camera(Camera(16)), abcfuck(std::vector<std::tuple<int, int, bool>>())
 {
     player.addComponent<TransformComponent>(Vec2{-4.0f, 3.0f}, Vec2{3.0f, 3.0f});
     player.addComponent<VelocityComponent>(13.0f);
@@ -55,6 +55,11 @@ void GameScene::render()
     for (auto [entity, transform, collision] : renderView.each())
     {
         camera.drawRect(collision.box.x + transform.pos.x, collision.box.y + transform.pos.y, collision.box.width, collision.box.height);
+    }
+
+    for (auto t : abcfuck)
+    {
+        camera.drawRect(std::get<0>(t) * DEFAULT_BLOCK_SIZE, std::get<1>(t) * DEFAULT_BLOCK_SIZE, DEFAULT_BLOCK_SIZE, DEFAULT_BLOCK_SIZE, std::get<2>(t));
     }
 }
 
@@ -101,11 +106,15 @@ void GameScene::handleVelocity(float p_deltaTime)
         int topTile = std::floor((newPos.y + collision.box.y) / DEFAULT_BLOCK_SIZE);
         int bottomTile = std::floor((newPos.y + collision.box.y + collision.box.height) / DEFAULT_BLOCK_SIZE);
 
+        abcfuck.clear();
         for (int tileX = leftTile; tileX <= rightTile; tileX++)
         {
             for (int tileY = topTile; tileY <= bottomTile; tileY++)
             {
-                auto tileCol = world.getTileAt(tileX, tileY)->collision(entity);
+                std::cout << tileX << "," << tileY << std::endl;
+                auto tile = world.getTileAt(tileX, tileY);
+                abcfuck.push_back(std::tuple(tile->x + tile->chunk.x * CHUNK_SIZE, tile->y + tile->chunk.y * CHUNK_SIZE, tile->collision(entity) == nullptr));
+                auto tileCol = tile->collision(entity);
                 if (tileCol == nullptr)
                     continue;
                 auto scaledX = tileX * DEFAULT_BLOCK_SIZE;
