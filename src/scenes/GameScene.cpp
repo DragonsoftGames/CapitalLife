@@ -107,11 +107,11 @@ void GameScene::handleVelocity(float p_deltaTime)
         int bottomTile = std::floor((newPos.y + collision.box.y + collision.box.height) / DEFAULT_BLOCK_SIZE);
 
         abcfuck.clear();
+        std::cout << leftTile << "," << topTile << std::endl;
         for (int tileX = leftTile; tileX <= rightTile; tileX++)
         {
             for (int tileY = topTile; tileY <= bottomTile; tileY++)
             {
-                std::cout << tileX << "," << tileY << std::endl;
                 auto tile = world.getTileAt(tileX, tileY);
                 abcfuck.push_back(std::tuple(tile->x + tile->chunk.x * CHUNK_SIZE, tile->y + tile->chunk.y * CHUNK_SIZE, tile->collision(entity) == nullptr));
                 auto tileCol = tile->collision(entity);

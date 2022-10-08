@@ -24,8 +24,8 @@ World::~World()
 
 Tile *World::getTileAt(int p_x, int p_y)
 {
-    auto cX = i32(std::floor(f32(p_x < 0 ? p_x - 1 : p_x) / CHUNK_SIZE));
-    auto cY = i32(std::floor(f32(p_y < 0 ? p_y - 1 : p_y) / CHUNK_SIZE));
+    auto cX = i32(std::floor(f32(p_x) / CHUNK_SIZE));
+    auto cY = i32(std::floor(f32(p_y) / CHUNK_SIZE));
     auto tX = p_x % CHUNK_SIZE;
     if (tX < 0)
     {
