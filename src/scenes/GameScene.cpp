@@ -104,7 +104,6 @@ void GameScene::handleVelocity(float p_deltaTime)
         int bottomTile = std::floor((newPos.y + collision.box.y + collision.box.height) / DEFAULT_BLOCK_SIZE);
 
         CALI_DEBUG_TILECOL_CLEAR
-        std::cout << leftTile << "," << topTile << std::endl;
         for (int tileX = leftTile; tileX <= rightTile; tileX++)
         {
             for (int tileY = topTile; tileY <= bottomTile; tileY++)

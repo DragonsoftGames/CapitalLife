@@ -8,7 +8,7 @@ struct Inventory
 {
 public:
     Inventory(unsigned short p_maxSize);
-    
+
     void addItem(Item p_item);
 
 private:

@@ -4,7 +4,7 @@
 
 namespace ItemTypes
 {
-    inline ItemType* stick;
+    inline ItemType *stick;
 
     inline void setup()
     {

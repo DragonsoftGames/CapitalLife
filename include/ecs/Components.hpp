@@ -12,7 +12,7 @@ struct TransformComponent
 
 struct SpriteComponent
 {
-    SDL_Texture* texture;
+    SDL_Texture *texture;
 };
 
 struct VelocityComponent
@@ -20,7 +20,7 @@ struct VelocityComponent
     Vec2 delta;
     float speed;
 
-    VelocityComponent(float p_speed) :delta(Vec2::Zero), speed(p_speed) { }
+    VelocityComponent(float p_speed) : delta(Vec2::Zero), speed(p_speed) {}
 };
 
 struct CollisionComponent

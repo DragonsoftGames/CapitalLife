@@ -6,7 +6,7 @@
 
 namespace BlockTypes
 {
-    inline BlockType* grass;
+    inline BlockType *grass;
 
     inline void setup()
     {

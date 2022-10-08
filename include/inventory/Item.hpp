@@ -3,14 +3,14 @@
 class ItemData
 {
 public:
-    virtual ~ItemData() {};
+    virtual ~ItemData(){};
 };
 
 struct ItemType
 {
     ~ItemType();
 
-    const char* id;
+    const char *id;
     unsigned short size;
 };
 
@@ -18,8 +18,8 @@ struct Item
 {
     ~Item();
 
-    ItemType* type;
-    ItemData* data;
+    ItemType *type;
+    ItemData *data;
 
     inline unsigned short getSize()
     {

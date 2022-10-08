@@ -11,6 +11,7 @@ public:
     }
 
     static bool isKeyPressed(SDL_Scancode key);
+
 private:
-    inline static const Uint8* keys = nullptr;
+    inline static const Uint8 *keys = nullptr;
 };

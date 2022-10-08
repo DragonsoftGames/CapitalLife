@@ -7,9 +7,10 @@ class Entity;
 
 class Scene
 {
-friend class Entity;
+    friend class Entity;
+
 public:
-    virtual ~Scene() {};
+    virtual ~Scene(){};
 
     virtual void update(float deltaTime) = 0;
     virtual void render() = 0;
@@ -17,7 +18,6 @@ public:
 protected:
     Entity createEntity();
     entt::registry registry;
-    
 
 private:
 };
