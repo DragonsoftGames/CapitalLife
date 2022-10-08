@@ -17,8 +17,7 @@ void WorldGenerator::generateChunk(World &p_world, int p_x, int p_y)
         {
             auto *tile = chunk->getTileAt(x, y);
             auto n = noise.eval(f64(p_x * CHUNK_SIZE + x) / 10.0, f64(p_y * CHUNK_SIZE + y) / 10.0);
-            // std::cout << n << std::endl;
-            if (n > 0.26)
+            if (n < 0.26)
             {
                 tile->addBlock(new Block{BlockTypes::grass, nullptr});
             }
