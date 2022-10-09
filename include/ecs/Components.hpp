@@ -17,10 +17,12 @@ struct SpriteComponent
 
 struct VelocityComponent
 {
-    Vec2 delta;
+    Vec2 _delta;
     float speed;
+    float acceleration;
+    float friction;
 
-    VelocityComponent(float p_speed) : delta(Vec2::Zero), speed(p_speed) {}
+    VelocityComponent(float p_speed, float p_acceleration, float p_friction) : _delta(Vec2::Zero), speed(p_speed), acceleration(p_acceleration), friction(p_friction) {}
 };
 
 struct CollisionComponent

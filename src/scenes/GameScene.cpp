@@ -16,7 +16,7 @@ GameScene::GameScene()
     : world(World()), worldGen(WorldGenerator(13)), player(createEntity()), camera(Camera(16))
 {
     player.addComponent<TransformComponent>(Vec2{-4.0f, 3.0f}, Vec2{3.0f, 3.0f});
-    player.addComponent<VelocityComponent>(13.0f);
+    player.addComponent<VelocityComponent>(13.0f, 2.0f, 4.5f);
     player.addComponent<SpriteComponent>(TextureManager::loadTexture("res/artwork/grass.png"));
     player.addComponent<CollisionComponent>(AABB{0.625f, 2.0f, 1.75f, 0.625f});
     player.addComponent<PlayerInventory>();
@@ -62,7 +62,7 @@ void GameScene::render()
 
 void GameScene::handlePlayerInput()
 {
-    player.getComponent<VelocityComponent>().delta = Input::getInputDirection();
+    player.getComponent<VelocityComponent>()._delta = Input::getInputDirection();
 }
 
 #include <iostream>
@@ -74,12 +74,12 @@ void GameScene::handleVelocity(float p_deltaTime)
     auto renderView = registry.view<VelocityComponent, TransformComponent, CollisionComponent>();
     for (auto [entity, velocity, transform, collision] : renderView.each())
     {
-        if (velocity.delta == Vec2::Zero)
+        if (velocity._delta == Vec2::Zero)
             continue;
-        velocity.delta.normalize();
+        velocity._delta.normalize();
 
         // from here on goes shitty implemented collision :)
-        auto newPos = transform.pos + velocity.delta * p_deltaTime * velocity.speed;
+        auto newPos = transform.pos + velocity._delta * p_deltaTime * velocity.speed;
 
         int leftTile = std::floor((newPos.x + collision.box.x) / DEFAULT_BLOCK_SIZE);
         int rightTile = std::floor((newPos.x + collision.box.x + collision.box.width) / DEFAULT_BLOCK_SIZE);
