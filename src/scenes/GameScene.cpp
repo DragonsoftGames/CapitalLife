@@ -62,24 +62,7 @@ void GameScene::render()
 
 void GameScene::handlePlayerInput()
 {
-    Vec2 velocity = Vec2::Zero;
-    if (Input::isKeyPressed(SDL_SCANCODE_W))
-    {
-        velocity.y -= 1.0f;
-    }
-    if (Input::isKeyPressed(SDL_SCANCODE_A))
-    {
-        velocity.x -= 1.0f;
-    }
-    if (Input::isKeyPressed(SDL_SCANCODE_S))
-    {
-        velocity.y += 1.0f;
-    }
-    if (Input::isKeyPressed(SDL_SCANCODE_D))
-    {
-        velocity.x += 1.0f;
-    }
-    player.getComponent<VelocityComponent>().delta = velocity;
+    player.getComponent<VelocityComponent>().delta = Input::getInputDirection();
 }
 
 #include <iostream>
